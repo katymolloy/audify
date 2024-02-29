@@ -1,0 +1,20 @@
+.landingContainer{
+    display: flex;
+    height: 100vh;
+    margin: 2em;
+    
+    .signInButton{
+        background-color: black;
+        color: white;
+        text-decoration: none;
+        padding: 5px;
+        border-radius: 15px;
+        max-width: 5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        :visited{
+            color: white;
+        }
+    }
+}

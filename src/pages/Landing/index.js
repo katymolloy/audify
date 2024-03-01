@@ -18,7 +18,8 @@ export default function LandingPage() {
                 <div className="signInButton">
                     <Link to="/login">
                         Sign In
-                    </Link><FaArrowRight />
+                        <FaArrowRight />
+                    </Link>
                 </div>
                 <div className="column createAccount">
                     Don't have an account?

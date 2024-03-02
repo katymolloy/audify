@@ -3,10 +3,16 @@
     padding: 0;
 }
 
+.landingContainer#dark {
+    background: #121212;
+    color: white;
+}
+
 .landingContainer {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
 
     .info {
         width: 60%;
@@ -109,5 +115,16 @@
         border: 2px solid black;
         height: 100vh;
         background-image: linear-gradient(rgb(201, 201, 201), rgb(87, 87, 87));
+    }
+
+    .dark-mode-toggle {
+        margin-left: auto;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        svg {
+            height: 30px;
+            width: 30px;
+        }
     }
 }

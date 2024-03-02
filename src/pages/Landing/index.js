@@ -2,11 +2,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
 import { MdDarkMode } from "react-icons/md";
+import { MdLightMode } from "react-icons/md";
+
 
 import "./style.scss";
 
 export default function LandingPage() {
-  const [isDark, setIsDark] = useState('light');
+  const [isDark, setIsDark] = useState('dark');
+
+  const themeIcon = isDark === 'dark' ? <MdLightMode /> : <MdDarkMode />;
 
   return (
     <div className="container landingContainer" id={isDark}>
@@ -23,7 +27,7 @@ export default function LandingPage() {
             className="dark-mode-toggle"
             onClick={() => setIsDark(isDark === 'light' ? 'dark' : 'light')}
           >
-            <MdDarkMode />
+            {themeIcon}
           </button>
         </span>
         <h1 className="">Blah Blah Blah Blah</h1>

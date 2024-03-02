@@ -9,7 +9,6 @@ import "./style.scss";
 
 export default function LandingPage() {
   const [isDark, setIsDark] = useState('dark');
-
   const themeIcon = isDark === 'dark' ? <MdLightMode /> : <MdDarkMode />;
 
   return (

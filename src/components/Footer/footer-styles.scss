@@ -1,0 +1,72 @@
+@import './../../styles/variables.scss';
+
+
+.footer-main {
+
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+    color: white;
+    background-color: $black-color;
+
+
+    .shoutout-logo {
+
+        font-size: 1.5rem;
+
+        .audify-logo {
+
+            padding-bottom: 0.3rem;
+
+        }
+
+        .shoutout {
+
+            border-top: solid 2px white;
+            padding-top: 0.3rem;
+            display: flex;
+            align-items: center;
+
+            svg {
+
+                margin-right: 0.4rem;
+                font-size: 1.8rem;
+                color: $green-color;
+
+            }
+
+        }
+
+    }
+
+    
+    .links-section {
+
+        div {
+            font-size: 1.5rem;
+        }
+
+        a {
+
+            display: block;
+            text-align: start;
+            text-decoration: none;
+            padding-top: 0.8rem;
+            color: white;   
+
+        }
+
+    }
+
+
+    .copyright {
+
+        font-size: 1.2rem;
+        text-align: start;
+
+    }
+
+}

@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import './register.scss';
 import { useNavigate } from "react-router-dom";
+import Spotify, {redirectUri, clientId} from "../../util/spotify";
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('');
@@ -17,8 +18,8 @@ export default function RegisterPage() {
         await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                navigate('/home');
-                console.log(user)
+                window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
+                console.log(user);
             })
 
     }

@@ -2,6 +2,49 @@
 
 /* Colors */
 $title-color: white;
-$green-color: #1DB954;
+$green-color: #1db954;
 $green-color-hover: #1fce5c;
 $black-color: #191414;
+
+/* Mixin's for breakpoints */
+@mixin breakpoint($min-width) {
+  @media only screen and (min-width: $min-width) {
+    @content;
+  }
+}
+
+@mixin breakpoint-x-small {
+  @include breakpoint(500px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-small {
+  @include breakpoint(545px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-medium {
+  @include breakpoint(726px){
+    @content;
+  }
+}
+
+@mixin breakpoint-large {
+  @include breakpoint(819px){
+    @content;
+  }
+}
+
+@mixin breakpoint-x-large {
+  @include breakpoint(992px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-xx-large {
+  @include breakpoint(1200px){
+    @content;
+  }
+}

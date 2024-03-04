@@ -4,18 +4,29 @@
 .footer-main {
 
     width: auto;
-    padding: 2rem;
+    padding: 2rem 0;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     text-align: center;
     justify-content: space-evenly;
     color: white;
     background-color: $black-color;
+    gap: 10px;
 
 
     .shoutout-logo {
 
+
         font-size: 1.5rem;
+
+        @include breakpoint-small{
+            font-size: 1rem;
+        }
+
+        @include breakpoint-medium{
+            font-size: 1.5rem;
+        }
 
         .audify-logo {
 
@@ -44,7 +55,6 @@
 
     
     .links-section {
-
         div {
             font-size: 1.5rem;
         }

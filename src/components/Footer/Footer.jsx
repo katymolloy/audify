@@ -18,7 +18,7 @@ export default function Footer() {
                         Audify
                     </div>
                     <div className='shoutout'>
-                        <FaSpotify />Powered By Spotify
+                        <FaSpotify />Powered By Spotify hello world
                     </div>
                 </div>
 

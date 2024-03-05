@@ -8,12 +8,11 @@ import { FaSpotify } from "react-icons/fa";
 import "./style.scss";
 
 export default function LandingPage() {
-  const [isDark, setIsDark] = useState('dark');
-  const themeIcon = isDark === 'dark' ? <MdLightMode /> : <MdDarkMode />;
+  const [isDark, setIsDark] = useState("dark");
+  const themeIcon = isDark === "dark" ? <MdLightMode /> : <MdDarkMode />;
 
   return (
-    <>
-      <div className="container landingContainer" id={isDark}>
+      <div className="landingContainer" id={isDark}>
         <div className="info">
           <span className="logo">
             <img src="/images/AudifyLogo.png" alt="Audify Logo"></img>
@@ -51,6 +50,5 @@ export default function LandingPage() {
         </div>
         <div className="albums">{/* scrolling album work here */}</div>
       </div>
-    </>
   );
 }

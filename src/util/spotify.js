@@ -26,15 +26,16 @@ const Spotify = {
         }
     },
     // This will take a search string and fetch albums from that name
-    search(album) {
+    home() {
         const token = Spotify.getAccessToken();
         // search documentation found here: https://developer.spotify.com/documentation/web-api/reference/search
-        return fetch(`https://api.spotify.com/v1/search?q=${album}&type=album`, {
+        return fetch(`https://api.spotify.com/v1/browse/new-releases`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
             .then((response) => {
+                console.log(response.json);
                 return response.json();
             })
             .then((jsonResponse) => {
@@ -47,15 +48,10 @@ const Spotify = {
                     name: album.name,
                     spotify: album.external_urls.spotify, //Open with spotify link
                     cover: album.images[0].url,
-                    date: album.release_date,
-                    artist: album.artists[0].name,
-                    tracks: album.total_tracks,
-                    //Need to figure out how to display all track names*
-                    uri: album.uri,
                 }));
             });
     },
 };
-export {clientId, redirectUri}
+export { clientId, redirectUri }
 
 export default Spotify;

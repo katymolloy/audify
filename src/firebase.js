@@ -2,13 +2,23 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA4Uro1skL9__v_I8LI7hNHSGl0IrL5mG4",
-  authDomain: "audify-20985.firebaseapp.com",
-  projectId: "audify-20985",
-  storageBucket: "audify-20985.appspot.com",
-  messagingSenderId: "26870316743",
-  appId: "1:26870316743:web:6286a6f178e1abb17088e2"
+
+  apiKey: "AIzaSyAa6HWNWLbZIeLipv_jtBBZtGA5yeShO48",
+
+  authDomain: "audify-database.firebaseapp.com",
+
+  projectId: "audify-database",
+
+  storageBucket: "audify-database.appspot.com",
+
+  messagingSenderId: "611138328808",
+
+  appId: "1:611138328808:web:537b41412f89db5173915d",
+
+  measurementId: "G-168BQHK999"
+
 };
+
 
 
 const app = initializeApp(firebaseConfig);

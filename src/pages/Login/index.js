@@ -14,8 +14,9 @@ export default function LoginPage() {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            navigate('/home');
             console.log(user)
+            navigate('/home');
+          
         })
         .catch((err) =>{
             const errorCode = err.code;

@@ -1,178 +1,201 @@
 @import "../../styles/variables.scss";
 
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .landingContainer#dark {
-  background: #121212e8;
-  color: white;
-  svg {
+    background: #121212e8;
     color: white;
-  }
 
-  .column.createAccount a {
-    color: white;
-  }
+    svg {
+        color: white;
+    }
+
+    .column.createAccount a {
+        color: white;
+    }
 }
 
 .landingContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  .info {
-    width: 60%;
-    height: 90vh;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .signIn-signUp-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    .signInButton a {
-      margin-top: 3rem;
-      background-color: black;
-      color: white;
-      padding: 10px 80px;
-      border-radius: 50px;
-      // max-width: 5em;
-      font-size: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      :visited {
-        color: white;
-      }
-
-      text-decoration: none;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-  }
-
-  .logo {
-    display: flex;
+    justify-content: space-around;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    border-bottom: 3px solid black;
-    padding-bottom: 30px;
-  }
 
-  .logo img {
-    width: 75px;
-    height: 75px;
-    margin-right: 5px;
-  }
+    .info {
+        width: 60%;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-  .logoTitle {
-    font-size: 50px;
-    line-height: 40px;
-    font-weight: bold;
-    letter-spacing: 3px;
-  }
+    .signIn-signUp-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
 
-  .logoTag {
-    font-size: 30px;
-    font-weight: bold;
-  }
+        .signInButton a {
+            margin-top: 3rem;
+            background-color: black;
+            color: white;
+            padding: 10px 80px;
+            border-radius: 50px;
+            // max-width: 5em;
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-  h1 {
-    margin-top: 50px;
-    text-transform: uppercase;
-    font-size: 3rem;
-  }
+            :visited {
+                color: white;
+            }
 
-  h2 {
-    text-transform: uppercase;
-    font-size: 4rem;
-  }
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
 
-  @include breakpoint-small {
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        border-bottom: 3px solid black;
+        padding-bottom: 30px;
+    }
+
+    .logo img {
+        width: 75px;
+        height: 75px;
+        margin-right: 5px;
+    }
+
+    .logoTitle {
+        font-size: 50px;
+        line-height: 40px;
+        font-weight: bold;
+        letter-spacing: 3px;
+    }
+
+    .logoTag {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
     h1 {
-      font-size: 1.5rem;
+        margin-top: 50px;
+        text-transform: uppercase;
+        font-size: 3rem;
     }
+
     h2 {
-      font-size: 2.5rem;
+        text-transform: uppercase;
+        font-size: 4rem;
     }
-  }
-  @include breakpoint-medium {
-    h1 {
-      font-size: 2rem;
+
+    @include breakpoint-small {
+        .albums {
+            display: none;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
     }
-    h2 {
-      font-size: 3.5rem;
+
+    @include breakpoint-medium {
+        .albums {
+            display: none;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+        }
     }
-  }
-  @include breakpoint-large {
-    h1 {
-      font-size: 2.5rem;
+
+    @include breakpoint-large {
+        .albums {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 4rem;
+        }
     }
-    h2 {
-      font-size: 4rem;
+
+    @include breakpoint-x-large {
+        .albums {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 4.5rem;
+        }
     }
-  }
-  @include breakpoint-x-large {
-    h1 {
-      font-size: 3rem;
+
+    .column {
+        display: flex;
+        flex-direction: column;
     }
-    h2 {
-      font-size: 4.5rem;
+
+    .createAccount {
+        // margin-top: 30px;
+        font-size: 1.25rem;
     }
-  }
 
-  .column {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .createAccount {
-    // margin-top: 30px;
-    font-size: 1.25rem;
-  }
-
-  .createAccount a {
-    text-decoration: underline;
-    color: #000;
-    font-weight: 600;
-  }
-
-  .spotifyTag {
-    margin-top: 50px;
-    display: flex;
-    align-items: center;
-    font-size: 1.25rem;
-    font-weight: 500;
-  }
-
-  .spotifyTag img {
-    width: 30px;
-    margin-right: 10px;
-  }
-
-  .albums {
-    width: 30%;
-    border: 2px solid black;
-    height: 100vh;
-    background-image: linear-gradient(rgb(201, 201, 201), rgb(87, 87, 87));
-  }
-
-  .dark-mode-toggle {
-    margin-left: auto;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-
-    svg {
-      height: 30px;
-      width: 30px;
+    .createAccount a {
+        text-decoration: underline;
+        color: #000;
+        font-weight: 600;
     }
-  }
+
+    .spotifyTag {
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    .spotifyTag>* {
+        margin-right: 10px;
+    }
+
+    .albums {
+        width: 30%;
+        border: 2px solid black;
+        height: 100vh;
+        background-image: linear-gradient(rgb(201, 201, 201), rgb(87, 87, 87));
+    }
+
+    .dark-mode-toggle {
+        margin-left: auto;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        svg {
+            height: 30px;
+            width: 30px;
+        }
+    }
 }

@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
 import { MdDarkMode } from "react-icons/md";
 import { MdLightMode } from "react-icons/md";
-
-import Footer from '../../components/Footer/Footer';
-
+import { FaSpotify } from "react-icons/fa";
 
 import "./style.scss";
 
@@ -45,11 +43,14 @@ export default function LandingPage() {
               Don't have an account?
               <Link to="/register">Create one now</Link>
             </div>
+            <div className="spotifyTag">
+              <FaSpotify />
+              Powered By Spotify
+            </div>
           </div>
         </div>
         <div className="albums">{/* scrolling album work here */}</div>
       </div>
-      <Footer />
     </>
   );
 }

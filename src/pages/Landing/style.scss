@@ -25,6 +25,7 @@
 
     .info {
         width: 60%;
+        height: 90vh;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -181,7 +182,6 @@
 
     .albums {
         width: 30%;
-        border: 2px solid black;
         height: 100vh;
         background-image: linear-gradient(rgb(201, 201, 201), rgb(87, 87, 87));
     }

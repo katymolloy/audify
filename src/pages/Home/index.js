@@ -28,7 +28,7 @@ export default function HomePage() {
     return (
         <>
             <Header></Header>
-            <div className='container'>
+            <div className='homeContainer'>
                 <h1>Welcome Back user_name, Here's What We've Been Listening To...</h1>
                 <h2>New Releases</h2>
                 <div className="albums">

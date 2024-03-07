@@ -4,8 +4,9 @@ import { auth } from "../../firebase";
 import './register.scss';
 import { db } from "../../firebase";
 
-// import { redirectUri, clientId } from "../../util/spotify";
+import { redirectUri, clientId } from "../../util/spotify";
 import { doc, setDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('');
@@ -26,7 +27,7 @@ export default function RegisterPage() {
             });
 
             console.log('data added successfully')
-        } catch(error) {
+        } catch (error) {
             console.log('error writing to database', error)
         }
     }
@@ -37,18 +38,21 @@ export default function RegisterPage() {
                 const user = userCredential.user
                 console.log(user)
                 writeToDb(user.uid);;
-                // window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
             })
+    }
+
+    const authorizeSpotify = () => {
+        window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
     }
 
     const submitHandler = (e) => {
         e.preventDefault();
         registerUser();
-
     }
 
     return (
         <div className="container registerContainer">
+            <Link to={'/'}>Back</Link>
             <h1>Register</h1>
             <form className="loginForm">
                 <div>
@@ -78,6 +82,7 @@ export default function RegisterPage() {
                     ></input></label>
                 </div>
 
+                <button type="button" onClick={authorizeSpotify}>Link Spotify</button>
                 <button type="submit" onClick={submitHandler}>Create Account</button>
             </form>
         </div>

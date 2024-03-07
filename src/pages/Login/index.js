@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../firebase";
+import { Link } from "react-router-dom";
 import './login.scss'
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +28,7 @@ export default function LoginPage() {
 
     return (
         <div className="container loginContainer">
+                 <Link to={'/'}>Back</Link>
             <h1>Login</h1>
             <form className="loginForm">
                 <div>

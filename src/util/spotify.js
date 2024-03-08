@@ -1,5 +1,5 @@
 const clientId = "f2ad0261134a43ffb4338718bc196907"; // Our spotify API ID
-const redirectUri = "http://localhost:3000/home"; // must whitelist the redirects through the Spotify Developer Dashboard
+const redirectUri = "http://localhost:3000/register"; // must whitelist the redirects through the Spotify Developer Dashboard
 let accessToken = "";
 
 // Will have to create a search bar in order to test this, however using the documentation this should be correct without testing

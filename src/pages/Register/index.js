@@ -14,6 +14,8 @@ export default function RegisterPage() {
     const [username, setUsername] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [profilePic, setProfilePic] = useState('');
+    const [authSpotify, setAuthSpotify] = useState(false);
+    const [errorMsg, setErrorMsg] = useState([])
 
 
     const writeToDb = async (userId) => {
@@ -26,23 +28,41 @@ export default function RegisterPage() {
                 pfp: profilePic,
             });
 
+            await setDoc(doc(db, 'usernames', username), {
+                username: username,
+                uid: userId,
+            });
+
             console.log('data added successfully')
         } catch (error) {
-            console.log('error writing to database', error)
+            console.log(`Error writing to database: ${error}`)
         }
     }
 
     const registerUser = async () => {
-        await createUserWithEmailAndPassword(auth, email, password)
+        // if (!email) {
+        //     let err = ['Email required'];
+        //     setErrorMsg(err)
+        // }
+        // if(!username){
+        //     'Username required'
+        // }
+        // else{
+
+            await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user
                 console.log(user)
                 writeToDb(user.uid);;
             })
+        // }
+
     }
 
     const authorizeSpotify = () => {
         window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
+        setAuthSpotify(true)
+
     }
 
     const submitHandler = (e) => {
@@ -55,6 +75,9 @@ export default function RegisterPage() {
             <Link to={'/'}>Back</Link>
             <h1>Register</h1>
             <form className="loginForm">
+                <div className="errorBox">
+                    {errorMsg && errorMsg.forEach((error) => error)}
+                </div>
                 <div>
                     <label>Display Name <input
                         type="text"
@@ -83,7 +106,10 @@ export default function RegisterPage() {
                 </div>
 
                 <button type="button" onClick={authorizeSpotify}>Link Spotify</button>
-                <button type="submit" onClick={submitHandler}>Create Account</button>
+                {/* {
+                    authSpotify && */}
+                     <button type="submit" onClick={submitHandler}>Create Account</button>
+                {/* } */}
             </form>
         </div>
     )

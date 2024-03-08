@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import './register.scss';
@@ -21,9 +21,9 @@ export default function RegisterPage() {
     const navigate = useNavigate();
 
 
-    useEffect(function getUsernames() {
-        console.log('heyy')
-    })
+    // useEffect(function getUsernames() {
+    //     console.log('heyy')
+    // })
 
     const writeToDb = async (userId) => {
         try {
@@ -47,24 +47,16 @@ export default function RegisterPage() {
         }
     }
 
+
+
     const registerUser = async () => {
-        // if (!email) {
-        //     let err = ['Email required'];
-        //     setErrorMsg(err)
-        // }
-        // if(!username){
-        //     'Username required'
-        // }
-        // else{
-
-        await createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user
-                console.log(user)
-                writeToDb(user.uid);
-            })
-        // }
-
+        if (errorMsg.length === 0) {
+            await createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user
+                    writeToDb(user.uid);
+                })
+        }
     }
 
 
@@ -86,17 +78,12 @@ export default function RegisterPage() {
     return (
         <div className="container registerContainer">
             <Link to={'/'}>Back</Link>
-            <h1>Register</h1>
+            <h1>Create Account</h1>
             <form className="loginForm">
                 <div className="errorBox">
                     {errorMsg && errorMsg.forEach((error) => error)}
                 </div>
-                <div>
-                    <label>Display Name <input
-                        type="text"
-                        onChange={(e) => setDisplayName(e.target.value)}
-                    ></input></label>
-                </div>
+              
 
                 <div>
                     <label>Username <input
@@ -104,7 +91,12 @@ export default function RegisterPage() {
                         onChange={(e) => setUsername(e.target.value)}
                     ></input></label>
                 </div>
-
+                <div>
+                    <label>Display Name <input
+                        type="text"
+                        onChange={(e) => setDisplayName(e.target.value)}
+                    ></input></label>
+                </div>
 
                 <div>
                     <label>Profile Picture <input
@@ -125,12 +117,13 @@ export default function RegisterPage() {
                         onChange={(e) => setPassword(e.target.value)}
                     ></input></label>
                 </div>
+                <div>Use of Audify requires a Spotify account. Not yet a Spotify user? Sign up <a href="https://www.spotify.com/us/signup">here!</a></div>
 
                 <button type="button" onClick={authorizeSpotify}>Link Spotify</button>
-                {/* {
-                    authSpotify && */}
-                <button type="submit" onClick={submitHandler}>Create Account</button>
-                {/* } */}
+                {authSpotify &&
+                    <button type="submit" onClick={submitHandler}>Create Account</button>
+                }
+
             </form>
         </div>
     )

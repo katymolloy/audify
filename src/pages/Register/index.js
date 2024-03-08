@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import './register.scss';
@@ -6,7 +6,7 @@ import { db } from "../../firebase";
 
 import { redirectUri, clientId } from "../../util/spotify";
 import { doc, setDoc } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('');
@@ -18,9 +18,15 @@ export default function RegisterPage() {
     const [errorMsg, setErrorMsg] = useState([])
 
 
+    const navigate = useNavigate();
+
+
+    useEffect(function getUsernames() {
+        console.log('heyy')
+    })
+
     const writeToDb = async (userId) => {
         try {
-            console.log(username, displayName, userId)
             await setDoc(doc(db, 'users', userId), {
                 uid: userId,
                 username: username,
@@ -33,7 +39,7 @@ export default function RegisterPage() {
                 uid: userId,
             });
 
-            console.log('data added successfully')
+            console.log('Data added successfully')
         } catch (error) {
             console.log(`Error writing to database: ${error}`)
         }
@@ -49,25 +55,31 @@ export default function RegisterPage() {
         // }
         // else{
 
-            await createUserWithEmailAndPassword(auth, email, password)
+        await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user
                 console.log(user)
-                writeToDb(user.uid);;
+                writeToDb(user.uid);
             })
         // }
 
     }
 
+
+    const handleImageSubmit = () => {
+
+    }
+
+
     const authorizeSpotify = () => {
         window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
         setAuthSpotify(true)
-
     }
 
     const submitHandler = (e) => {
         e.preventDefault();
         registerUser();
+        navigate('/home');
     }
 
     return (
@@ -92,6 +104,14 @@ export default function RegisterPage() {
                     ></input></label>
                 </div>
 
+
+                <div>
+                    <label>Profile Picture <input
+                        type="file"
+                        onChange={handleImageSubmit}
+                    ></input></label>
+                </div>
+
                 <div>
                     <label>Email <input
                         type="text"
@@ -108,7 +128,7 @@ export default function RegisterPage() {
                 <button type="button" onClick={authorizeSpotify}>Link Spotify</button>
                 {/* {
                     authSpotify && */}
-                     <button type="submit" onClick={submitHandler}>Create Account</button>
+                <button type="submit" onClick={submitHandler}>Create Account</button>
                 {/* } */}
             </form>
         </div>

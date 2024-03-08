@@ -65,10 +65,10 @@ export default function RegisterPage() {
     }
 
 
-    const authorizeSpotify = () => {
-        window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
-        setAuthSpotify(true)
-    }
+    // const authorizeSpotify = () => {
+    //     window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
+    //     setAuthSpotify(true)
+    // }
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -119,10 +119,10 @@ export default function RegisterPage() {
                 </div>
                 <div>Use of Audify requires a Spotify account. Not yet a Spotify user? Sign up <a href="https://www.spotify.com/us/signup">here!</a></div>
 
-                <button type="button" onClick={authorizeSpotify}>Link Spotify</button>
-                {authSpotify &&
+                {/* <button type="button" onClick={authorizeSpotify}>Link Spotify</button> */}
+                {/* {authSpotify && */}
                     <button type="submit" onClick={submitHandler}>Create Account</button>
-                }
+                {/* } */}
 
             </form>
         </div>

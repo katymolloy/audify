@@ -38,8 +38,10 @@ export default function RegisterPage() {
                 username: username,
                 uid: userId,
             });
-
             console.log('Data added successfully')
+
+            navigate('/home');
+
         } catch (error) {
             console.log(`Error writing to database: ${error}`)
         }
@@ -79,7 +81,6 @@ export default function RegisterPage() {
     const submitHandler = (e) => {
         e.preventDefault();
         registerUser();
-        navigate('/home');
     }
 
     return (

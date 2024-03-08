@@ -83,7 +83,7 @@ export default function RegisterPage() {
                 <div className="errorBox">
                     {errorMsg && errorMsg.forEach((error) => error)}
                 </div>
-              
+
 
                 <div>
                     <label>Username <input
@@ -117,11 +117,11 @@ export default function RegisterPage() {
                         onChange={(e) => setPassword(e.target.value)}
                     ></input></label>
                 </div>
-                <div>Use of Audify requires a Spotify account. Not yet a Spotify user? Sign up <a href="https://www.spotify.com/us/signup">here!</a></div>
+                <div>Use of Audify requires a Spotify account. Not yet a Spotify user? Sign up <a href="https://www.spotify.com/us/signup" target="_blank">here!</a></div>
 
                 {/* <button type="button" onClick={authorizeSpotify}>Link Spotify</button> */}
                 {/* {authSpotify && */}
-                    <button type="submit" onClick={submitHandler}>Create Account</button>
+                <button type="submit" onClick={submitHandler}>Create Account</button>
                 {/* } */}
 
             </form>

@@ -11,7 +11,7 @@
     text-align: center;
     justify-content: space-evenly;
     color: white;
-    background-color: $black-color;
+    background-color: #000;
     gap: 10px;
 
 
@@ -19,12 +19,15 @@
 
 
         font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        @include breakpoint-small{
+        @include breakpoint-small {
             font-size: 1rem;
         }
 
-        @include breakpoint-medium{
+        @include breakpoint-medium {
             font-size: 1.5rem;
         }
 
@@ -37,7 +40,7 @@
         .shoutout {
 
             border-top: solid 2px white;
-            padding-top: 0.3rem;
+            padding: 0.3rem 1rem;
             display: flex;
             align-items: center;
 
@@ -53,7 +56,30 @@
 
     }
 
-    
+    .audify-logo {
+
+        display: flex;
+        align-items: center;
+        font-size: 3rem;
+        line-height: 3rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #fff;
+
+        img {
+            width: 60px;
+        }
+
+        p {
+            padding-bottom: 8px;
+            z-index: 5;
+            margin-left: -5px;
+            letter-spacing: 2px;
+        }
+    }
+
+
     .links-section {
         div {
             font-size: 1.5rem;
@@ -65,7 +91,7 @@
             text-align: start;
             text-decoration: none;
             padding-top: 0.8rem;
-            color: white;   
+            color: white;
 
         }
 

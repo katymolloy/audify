@@ -14,12 +14,15 @@ export default function Header() {
   return (
     <>
       <header className="main">
-        <div className="audify-logo">Audify</div>
+        <a className="audify-logo" href="/home">
+          <img src="/images/AudifyLogo.png" alt="Audify Logo"></img>
+          <p>udify</p>
+        </a>
 
-        <div className="user-section">
+        <a className="user-section" href="/account">
           <BsPersonCircle />
           User_Name <IoIosArrowDown className="arrow-down" />
-        </div>
+        </a>
 
         <form action="" className="search-bar">
           <input

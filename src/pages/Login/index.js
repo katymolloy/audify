@@ -1,31 +1,23 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+// import { signInWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "../../firebase";
+
 import { useState } from "react";
-import { auth } from "../../firebase";
 import { Link } from "react-router-dom";
 import './login.scss'
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
+export default function LoginPage({onLogin}) {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
 
-    const login = (e) => {
+
+    const loginHandler = (e)=>{
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user)
-            navigate('/home');
-          
-        })
-        .catch((err) =>{
-            const errorCode = err.code;
-            console.log(errorCode)
-        })
-
+        onLogin(email, password)
+        navigate('/home');
     }
-
+    
     return (
         <div className="container loginContainer">
                  <Link to={'/'}>Back</Link>
@@ -44,7 +36,7 @@ export default function LoginPage() {
                     ></input></label>
                 </div>
 
-                <button type="submit" onClick={login}>Login</button>
+                <button type="submit" onClick={loginHandler}>Login</button>
             </form>
         </div>
     )

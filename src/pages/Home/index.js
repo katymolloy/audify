@@ -7,13 +7,16 @@ import spotify from "../../util/spotify";
 import "./home.scss";
 
 
-export default function HomePage() {
+export default function HomePage({currentUser}) {
 
     const [albums, setAlbums] = useState([]);
+
+
 
     useEffect(() => {
         // Function to fetch albums data from Spotify API
         const fetchAlbums = async () => {
+            console.log(currentUser)
             try {
                 const data = await spotify.home(); // Fetch albums data from Spotify API
                 setAlbums(data); // Update the albums state with fetched data

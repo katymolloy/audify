@@ -5,7 +5,7 @@ import './register.scss';
 import { db } from "../../firebase";
 
 import { redirectUri, clientId } from "../../util/spotify";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
@@ -14,16 +14,27 @@ export default function RegisterPage() {
     const [username, setUsername] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [profilePic, setProfilePic] = useState('');
-    const [authSpotify, setAuthSpotify] = useState(false);
+    const [unavailUsers, setUnavailUsers] = useState([])
     const [errorMsg, setErrorMsg] = useState([])
 
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const unavailableUsernames = [];
+        const retrieveUsernames = async () => {
+            const querySnapshot = await getDocs(collection(db, "usernames"));
+            querySnapshot.forEach((doc) => {
+                unavailableUsernames.push(doc.id)
+            
+            });
+            console.log(unavailableUsernames)
 
-    // useEffect(function getUsernames() {
-    //     console.log('heyy')
-    // })
+            return unavailableUsernames;
+        }
+        retrieveUsernames();
+    }, [])
+
 
     const writeToDb = async (userId) => {
         try {

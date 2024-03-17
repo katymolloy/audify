@@ -26,8 +26,8 @@ export default function RegisterPage() {
       querySnapshot.forEach((doc) => {
         unavailableUsernames.push(doc.id);
       });
-      console.log(unavailableUsernames);
-
+      console.log('Existing Users: ', unavailableUsernames);
+      setUnavailUsers(unavailableUsernames);
       return unavailableUsernames;
     };
     retrieveUsernames();
@@ -82,6 +82,9 @@ export default function RegisterPage() {
     if (username.length < 5) {
       validate.push("Please enter a valid username with at least 5 characters");
     }
+    if (unavailUsers.includes(username) === true) {
+      validate.push("Username taken, please try another");
+    }
     if (displayName.length < 5) {
       validate.push(
         "Please enter a valid display name with at least 5 characters"
@@ -93,7 +96,9 @@ export default function RegisterPage() {
     if (password.length < 5) {
       validate.push("Please enter a password with at least 5 characters");
     }
+
     setErrorMsg(validate);
+    
 
     // run when no data is invalid/missing
     if (validate.length === 0) {

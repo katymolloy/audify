@@ -12,17 +12,17 @@ import { auth } from "./firebase";
 
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const currentUser = userCredential.user.uid;
-        setUser(currentUser)
+        setUser(currentUser);
       })
       .catch((err) => {
         const errorCode = err.code;
-        console.log(errorCode)
+        console.log(errorCode);
       })
   }
 

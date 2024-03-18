@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-
+import { useNavigation, Link } from 'react-router-dom';
 import spotify from "../../util/spotify";
 
 import "./home.scss";
 
 
-export default function HomePage({currentUser}) {
+export default function HomePage({ currentUser }) {
 
     const [albums, setAlbums] = useState([]);
 
-
+    // const navigate = useNavigation();
 
     useEffect(() => {
         // Function to fetch albums data from Spotify API
@@ -37,9 +37,14 @@ export default function HomePage({currentUser}) {
                 <div className="albums">
                     {/* Map through the albums array and display each album */}
                     {albums.map((album) => (
+                       
                         <div key={album.id} className="album">
                             <img src={album.cover} alt={album.name} />
-                            <a href={album.spotify} target="_blank" rel="noopener noreferrer">{album.name}</a>
+                            <Link to={`albums/${album.name}`}>
+                             <h3>{album.name}</h3>
+                             </Link>
+                                <a href={album.spotify} target="_blank" rel="noopener noreferrer">{album.name}</a>
+                           
                         </div>
                     ))}
                 </div>

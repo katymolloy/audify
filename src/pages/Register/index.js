@@ -26,7 +26,6 @@ export default function RegisterPage() {
             const querySnapshot = await getDocs(collection(db, "usernames"));
             querySnapshot.forEach((doc) => {
                 unavailableUsernames.push(doc.id)
-            
             });
             console.log(unavailableUsernames)
 
@@ -43,6 +42,7 @@ export default function RegisterPage() {
                 username: username,
                 display: displayName,
                 pfp: profilePic,
+                email: email,
             });
 
             await setDoc(doc(db, 'usernames', username), {
@@ -61,11 +61,10 @@ export default function RegisterPage() {
 
 
     const registerUser = async () => {
-        if (errorMsg.length === 0) {
+     if (errorMsg.length === 0) {
             await createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    const user = userCredential.user
-                    writeToDb(user.uid);
+                    writeToDb(userCredential.user.uid);
                 })
         }
     }
@@ -75,14 +74,14 @@ export default function RegisterPage() {
 
     }
 
-
-    // const authorizeSpotify = () => {
-    //     window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
-    //     setAuthSpotify(true)
-    // }
-
     const submitHandler = (e) => {
         e.preventDefault();
+        if(email === ''){
+            let error = ['Email required'];
+            setErrorMsg(error);
+            console.log(errorMsg)
+            return;
+        }
         registerUser();
     }
 
@@ -92,7 +91,9 @@ export default function RegisterPage() {
             <h1>Create Account</h1>
             <form className="loginForm">
                 <div className="errorBox">
-                    {errorMsg && errorMsg.forEach((error) => error)}
+                    {errorMsg && errorMsg.forEach((error) =>  {
+                        <h1>{error}</h1>
+                    })}
                 </div>
 
 

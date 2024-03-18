@@ -1,11 +1,12 @@
 const clientId = "f2ad0261134a43ffb4338718bc196907"; // Our spotify API ID
 const redirectUri = "http://localhost:3000/home"; // must whitelist the redirects through the Spotify Developer Dashboard
 let accessToken = "";
-
+// search documentation found here: https://developer.spotify.com/documentation/web-api/reference/search
 // Will have to create a search bar in order to test this, however using the documentation this should be correct without testing
 const Spotify = {
-    getAccessToken() {
-        if (accessToken) {
+
+    getAccessToken(forceRefresh = false) {
+        if (accessToken && !forceRefresh) {
             return accessToken;
         }
 
@@ -15,40 +16,64 @@ const Spotify = {
         if (accessTokenMatch && expiresInMatch) {
             accessToken = accessTokenMatch[1];
             const expiresIn = Number(expiresInMatch[1]);
-            // This clears the parameters, allowing us to grab a new access token
-            // when it expires
             window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
             window.history.pushState("Access Token", null, "/");
             return accessToken;
-        } else {
-            const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
+        } else if (!accessToken) {
+            const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=user-library-read&redirect_uri=${redirectUri}`;
             window.location = accessUrl;
         }
     },
+
     // This will take a search string and fetch albums from that name
     home() {
+        // Get access token
         const token = Spotify.getAccessToken();
-        // search documentation found here: https://developer.spotify.com/documentation/web-api/reference/search
-        return fetch(`https://api.spotify.com/v1/browse/new-releases`, {
+
+        // Fetch new releases
+        const fetchNewReleases = fetch(`https://api.spotify.com/v1/browse/new-releases`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-            .then((response) => {
-                console.log(response.json);
-                return response.json();
-            })
-            .then((jsonResponse) => {
+            .then(response => response.json())
+            .then(jsonResponse => {
                 if (!jsonResponse.albums) {
                     return [];
                 }
-
-                return jsonResponse.albums.items.map((album) => ({
+                return jsonResponse.albums.items.map(album => ({
                     id: album.id,
                     name: album.name,
-                    spotify: album.external_urls.spotify, //Open with spotify link
+                    spotify: album.external_urls.spotify,
                     cover: album.images[0].url,
                 }));
+            });
+        // Fetch user's albums
+        const fetchUserAlbums = fetch(`https://api.spotify.com/v1/me/albums`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (!jsonResponse.items) {
+                    return [];
+                }
+                return jsonResponse.items.map(item => ({
+                    id: item.album.id,
+                    name: item.album.name,
+                    spotify: item.album.external_urls.spotify,
+                    cover: item.album.images[0].url,
+                }));
+            });
+
+        // Combine both fetch requests
+        return Promise.all([fetchNewReleases, fetchUserAlbums])
+            .then(([newReleases, userAlbums]) => {
+                return {
+                    newReleases: newReleases,
+                    userAlbums: userAlbums
+                };
             });
     },
 };

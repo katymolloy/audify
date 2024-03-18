@@ -10,23 +10,24 @@ import "./home.scss";
 export default function HomePage({ currentUser }) {
 
     const [albums, setAlbums] = useState([]);
+    const [savedAlbums, setSavedAlbums] = useState([]);
 
     // const navigate = useNavigation();
 
     useEffect(() => {
-        // Function to fetch albums data from Spotify API
         const fetchAlbums = async () => {
-            console.log(currentUser)
             try {
-                const data = await spotify.home(); // Fetch albums data from Spotify API
-                setAlbums(data); // Update the albums state with fetched data
+                const data = await spotify.home();
+                setAlbums(data.newReleases);
+                setSavedAlbums(data.userAlbums);
+                console.log(data.userAlbums);
             } catch (error) {
-                console.error('Error fetching albums:', error); // Log any errors that occur during fetching
+                console.error('Error fetching albums:', error);
             }
         };
 
-        fetchAlbums(); // Call the fetchAlbums function when the component is mounted
-    }, []); // Empty dependency array ensures this effect runs only once, similar to componentDidMount
+        fetchAlbums();
+    }, []);
 
     return (
         <>
@@ -37,18 +38,27 @@ export default function HomePage({ currentUser }) {
                 <div className="albums">
                     {/* Map through the albums array and display each album */}
                     {albums.map((album) => (
-                       
                         <div key={album.id} className="album">
                             <img src={album.cover} alt={album.name} />
                             <Link to={`albums/${album.name}`}>
-                             <h3>{album.name}</h3>
-                             </Link>
-                                <a href={album.spotify} target="_blank" rel="noopener noreferrer">{album.name}</a>
-                           
+                                <h3>{album.name}</h3>
+                            </Link>
+                            <a href={album.spotify} target="_blank" rel="noopener noreferrer">{album.name}</a>
                         </div>
                     ))}
                 </div>
                 <h2>Saved Albums</h2>
+                <div className="albums"> {/* Add a div for saved albums */}
+                    {savedAlbums.map((album) => (
+                        <div key={album.id} className="album">
+                            <img src={album.cover} alt={album.name} />
+                            <Link to={`albums/${album.name}`}>
+                                <h3>{album.name}</h3>
+                            </Link>
+                            <a href={album.spotify} target="_blank" rel="noopener noreferrer">{album.name}</a>
+                        </div>
+                    ))}
+                </div>
                 <h2>Latest Reviews</h2>
             </div>
             <Footer />

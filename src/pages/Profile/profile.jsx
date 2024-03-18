@@ -18,11 +18,11 @@ export default function ProfilePage() {
         <>
             <Header />
 
-            <div className = 'user-information'>
+            <div className='user-information'>
 
                 <HiMiniUserCircle />
 
-                <div className = 'name-email-country'>
+                <div className='name-email-country'>
                     <h1>User_Name</h1>
                     <div>UserName@gmail.com</div>
                     <div>Canada</div>
@@ -30,7 +30,7 @@ export default function ProfilePage() {
 
                 <button>Edit Profile</button>
 
-                <div className = 'followers-reviews'>
+                <div className='followers-reviews'>
                     <div>
                         Total Followers: <strong>21</strong>
                     </div>
@@ -38,7 +38,36 @@ export default function ProfilePage() {
                         Total Reviews: <strong>99</strong>
                     </div>
                 </div>
-                
+
+            </div>
+
+            <h3>
+                RECENT ACTIVITY
+            </h3>
+
+            <div className='recent-actvity'>
+
+                <div className='album-cover'>
+                    <img src='picture' alt='Album Cover' />
+                </div>
+
+                <div className = 'details'>
+                    <div>
+                        <HiMiniUserCircle /> User_Name
+                    </div>
+
+                    <h3>
+                        ALBUM NAME
+                    </h3>
+                    <div>
+                        2024
+                    </div>
+
+                    <div>
+                        Wow I really like this album
+                    </div>
+                </div>
+
             </div>
 
             <Footer />

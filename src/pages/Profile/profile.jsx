@@ -18,6 +18,7 @@ export default function ProfilePage() {
         <>
             <Header />
 
+            {/* The User's Information Displayed */}
             <div className='user-information'>
 
                 <HiMiniUserCircle />
@@ -41,10 +42,13 @@ export default function ProfilePage() {
 
             </div>
 
+
             <h3>
                 RECENT ACTIVITY
             </h3>
 
+
+            {/* The User's Review Activity */}
             <div className='recent-actvity'>
 
                 <div className='album-cover'>

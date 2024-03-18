@@ -13,7 +13,7 @@ import { auth } from "./firebase";
 
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
@@ -23,7 +23,7 @@ function App() {
       })
       .catch((err) => {
         const errorCode = err.code;
-        console.log(errorCode)
+        console.log(errorCode);
       })
   }
 

@@ -33,6 +33,7 @@ export default function RegisterPage() {
     retrieveUsernames();
   }, []);
 
+
   const writeToDb = async (userId) => {
     try {
       await setDoc(doc(db, "users", userId), {
@@ -79,19 +80,19 @@ export default function RegisterPage() {
     const validate = [];
 
     // check for invalid/missing data
+    if(unavailUsers.includes(username) === true){
+      validate.push(`Username '${username}' is taken, please try a different one`)
+    }
     if (username.length < 5) {
       validate.push("Please enter a valid username with at least 5 characters");
     }
-    if (unavailUsers.includes(username) === true) {
-      validate.push("Username taken, please try another");
-    }
-    if (displayName.length < 5) {
+    if (displayName.length < 3) {
       validate.push(
-        "Please enter a valid display name with at least 5 characters"
+        "Please enter a valid display name with at least 3 characters"
       );
     }
     if (email.length < 8) {
-      validate.push("Please enter a valid email with 8, or more, characters");
+      validate.push("Please enter a valid email with 8 or more characters");
     }
     if (password.length < 5) {
       validate.push("Please enter a password with at least 5 characters");
@@ -125,7 +126,7 @@ export default function RegisterPage() {
         <div>
           <label>
             Username{" "}
-            <input type="text" onChange={(e) => setUsername(e.target.value)} />
+            <input type="text" onChange={(e) => setUsername((e.target.value).toLowerCase())} />
           </label>
         </div>
         <div>

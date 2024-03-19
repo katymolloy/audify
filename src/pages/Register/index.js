@@ -11,6 +11,8 @@ import { Link, useNavigate } from "react-router-dom";
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
   const [username, setUsername] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
@@ -83,8 +85,8 @@ export default function RegisterPage() {
     if(unavailUsers.includes(username) === true){
       validate.push(`Username '${username}' is taken, please try a different one`)
     }
-    if (username.length < 5) {
-      validate.push("Please enter a valid username with at least 5 characters");
+    if (username.length < 3) {
+      validate.push("Please enter a valid username with at least 3 characters");
     }
     if (displayName.length < 3) {
       validate.push(
@@ -97,6 +99,10 @@ export default function RegisterPage() {
     if (password.length < 5) {
       validate.push("Please enter a password with at least 5 characters");
     }
+    if (password !== passwordConfirm) {
+      validate.push("Passwords do not match");
+    }
+
 
     setErrorMsg(validate);
     
@@ -159,8 +165,19 @@ export default function RegisterPage() {
           <label>
             Password{" "}
             <input
+              // type="password"
               type="text"
               onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </label>
+        </div>
+        <div>
+          <label>
+            Confirm Password{" "}
+            <input
+              // type="password"
+              type="text"
+              onChange={(e) => setPasswordConfirm(e.target.value)}
             ></input>
           </label>
         </div>

@@ -11,7 +11,7 @@ import NotFound from './pages/NotFound';
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,10 +30,9 @@ function App() {
 
   useEffect(() => {
     const getUserData = async () => {
-      const q = query(collection(db, 'users'), where(doc.id === currentUser))
-      const querySnap = await getDocs(q);
+      const querySnap = await getDocs(collection, db, 'users', currentUser);
       querySnap.forEach((doc) => {
-        console.log(doc.display)
+        console.log(doc.data())
       })
     }
     getUserData();

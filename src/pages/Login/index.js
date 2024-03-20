@@ -13,7 +13,6 @@ export default function LoginPage({ onLogin }) {
   const [password, setPassword] = useState('');
   const [errorMsg, SetErrorMsg] = useState([]);
 
-
   const loginHandler = (e) => {
     e.preventDefault();
     const validate = [];
@@ -27,9 +26,13 @@ export default function LoginPage({ onLogin }) {
     SetErrorMsg(validate);
 
     if (validate.length === 0) {
-      onLogin(email, password);
-      Spotify.getAccessToken();
-      navigate('/home');
+      const accessToken = Spotify.getAccessToken();
+      if (accessToken) {
+        onLogin(email, password);
+        setTimeout(() => {
+          navigate('/home');
+        }, 1000);
+      }
     }
   }
 

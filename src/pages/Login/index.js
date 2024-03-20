@@ -39,10 +39,10 @@ export default function LoginPage({ onLogin }) {
   return (
     <div className="container loginContainer">
       <div className="card">
-        <Link to={"/"}>Back</Link>
-        <img src="../../../../public/images/AudifyLogo.png"></img>
-        <h1>Welcome Back</h1>
-        <p>Login to get started</p>
+        <Link className="back" to={"/"}>Back</Link>
+        <img className="logo" src="/images/AudifyLogo.png" alt="Audify Logo"></img>
+        <h1 className="title">Welcome Back</h1>
+        <p className="sub">Login to get started</p>
         <form className="loginForm">
           {errorMsg.length > 0 && (
             <div className="login-errorBox">
@@ -55,22 +55,18 @@ export default function LoginPage({ onLogin }) {
             </div>
           )}
           <div>
-            <label>
-              Email{" "}
-              <input
-                type="text"
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </label>
+            <input
+              type="text"
+              placeholder="Email Address"
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
           </div>
           <div>
-            <label>
-              Password{" "}
-              <input
-                type="text"
-                onChange={(e) => setPassword(e.target.value)}
-              ></input>
-            </label>
+            <input
+              type="text"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
           </div>
 
           <button type="submit" onClick={loginHandler}>

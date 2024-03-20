@@ -117,7 +117,9 @@ export default function RegisterPage() {
     <div className="container registerContainer">
       <div className="card">
         <Link to={"/"}>Back</Link>
-        <h1>Create Account</h1>
+        <img className="logo" src="/images/AudifyLogo.png" alt="Audify Logo"></img>
+        <h1 className="title">Create An Account</h1>
+        <p className="sub">Enter All Fields to get set up</p>
         <form className="loginForm">
           {errorMsg.length > 0 && (
             <div className="errorBox">
@@ -131,19 +133,10 @@ export default function RegisterPage() {
           )}
 
           <div>
-            <label>
-              Username{" "}
-              <input type="text" onChange={(e) => setUsername((e.target.value).toLowerCase())} />
-            </label>
+            <input placeholder="User Name" type="text" onChange={(e) => setUsername((e.target.value).toLowerCase())} />
           </div>
           <div>
-            <label>
-              Display Name{" "}
-              <input
-                type="text"
-                onChange={(e) => setDisplayName(e.target.value)}
-              ></input>
-            </label>
+            <input placeholder="Display Name" type="text" onChange={(e) => setDisplayName(e.target.value)}></input>
           </div>
 
           {/* <div>
@@ -154,36 +147,26 @@ export default function RegisterPage() {
                 </div> */}
 
           <div>
-            <label>
-              Email{" "}
-              <input
-                type="text"
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </label>
+            <input placeholder="Email Address" type="text" onChange={(e) => setEmail(e.target.value)}></input>
           </div>
           <div>
-            <label>
-              Password{" "}
-              <input
-                // type="password"
-                type="text"
-                onChange={(e) => setPassword(e.target.value)}
-              ></input>
-            </label>
+            <input
+              placeholder="Password"
+              // type="password"
+              type="text"
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
           </div>
           <div>
-            <label>
-              Confirm Password{" "}
-              <input
-                // type="password"
-                type="text"
-                onChange={(e) => setPasswordConfirm(e.target.value)}
-              ></input>
-            </label>
+            <input
+              placeholder="Confirm Password"
+              // type="password"
+              type="text"
+              onChange={(e) => setPasswordConfirm(e.target.value)}
+            ></input>
           </div>
           <div>
-            Use of Audify requires a Spotify account. Not yet a Spotify user? Sign
+            Use of Audify requires a Spotify account. <br></br>Not yet a Spotify user? Sign
             up{" "}
             <a href="https://www.spotify.com/us/signup" target="_blank">
               here!

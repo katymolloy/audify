@@ -1,6 +1,6 @@
 import './styles/app.scss';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LandingPage from './pages/Landing';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
@@ -11,7 +11,7 @@ import NotFound from './pages/NotFound';
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
-
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -28,15 +28,28 @@ function App() {
       })
   }
 
+  useEffect(() => {
+    const getUserData = async () => {
+      const q = query(collection(db, 'users'), where(doc.id === currentUser))
+      const querySnap = await getDocs(q);
+      querySnap.forEach((doc) => {
+        console.log(doc.display)
+      })
+    }
+    getUserData();
+  }, [])
+
+ 
+
 
   return (
     <Router>
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/login' 
-        element={<LoginPage
-          onLogin={login}
-        />} />
+        <Route path='/login'
+          element={<LoginPage
+            onLogin={login}
+          />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/home' element={<HomePage currentUser={user} />} />
         <Route path='/account' element={<AccountPage />} />

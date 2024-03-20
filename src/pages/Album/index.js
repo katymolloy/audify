@@ -44,12 +44,14 @@ export default function AlbumPage(){
             <h2>
                 WRITE A REVIEW
             </h2>
+            <hr />
 
             <Review />
 
 
             {/* Reviews Section */}
             <h2>REVIEWS</h2>
+            <hr />
         
         </>
     );

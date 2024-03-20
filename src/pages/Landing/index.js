@@ -48,7 +48,24 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <div className="albums">{/* scrolling album work here */}</div>
+      <div className="albums">
+        <div class="card-home">
+          <img src="/images/Row1.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row2.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row3.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row4.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row5.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row6.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row7.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row1.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row2.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row3.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row4.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row5.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row6.png" className="AlbumRow" alt="Album Covers"></img>
+          <img src="/images/Row7.png" className="AlbumRow" alt="Album Covers"></img>
+        </div>
+      </div>
     </div>
   );
 }

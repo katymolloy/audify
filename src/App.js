@@ -10,7 +10,7 @@ import AlbumPage from './pages/Album';
 import NotFound from './pages/NotFound';
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 function App() {
@@ -19,8 +19,12 @@ function App() {
   const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const currentUser = userCredential.user.uid;
-        setUser(currentUser);
+        setUser(userCredential.user.uid);
+
+        if (user !== null) {
+          getUserData(user);
+        }
+
       })
       .catch((err) => {
         const errorCode = err.code;
@@ -28,17 +32,16 @@ function App() {
       })
   }
 
-  useEffect(() => {
-    const getUserData = async () => {
-      const querySnap = await getDocs(collection, db, 'users', currentUser);
-      querySnap.forEach((doc) => {
-        console.log(doc.data())
-      })
-    }
-    getUserData();
-  }, [])
 
- 
+
+
+
+  const getUserData = async () => {
+    const querySnap = await getDocs(collection, db, 'users', user);
+    querySnap.forEach((doc) => {
+      console.log(doc.data())
+    })
+  }
 
 
   return (

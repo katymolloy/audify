@@ -6,8 +6,11 @@ let accessToken = "";
 const Spotify = {
 
     getAccessToken(forceRefresh = false) {
-        if (accessToken && !forceRefresh) {
-            return accessToken;
+
+        const storedAccessToken = localStorage.getItem('accessToken');
+        if (storedAccessToken && !forceRefresh) {
+            // If access token is found in localStorage and forceRefresh is false, return it
+            return storedAccessToken;
         }
 
         const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
@@ -17,6 +20,7 @@ const Spotify = {
             accessToken = accessTokenMatch[1];
             const expiresIn = Number(expiresInMatch[1]);
             window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
+            localStorage.setItem('accessToken', accessToken);
             window.history.pushState("Access Token", null, "/");
             return accessToken;
         } else if (!accessToken) {

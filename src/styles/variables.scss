@@ -26,13 +26,13 @@ $black-color: #191414;
 }
 
 @mixin breakpoint-medium {
-  @include breakpoint(726px){
+  @include breakpoint(726px) {
     @content;
   }
 }
 
 @mixin breakpoint-large {
-  @include breakpoint(819px){
+  @include breakpoint(819px) {
     @content;
   }
 }
@@ -44,15 +44,26 @@ $black-color: #191414;
 }
 
 @mixin breakpoint-xx-large {
-  @include breakpoint(1200px){
+  @include breakpoint(1200px) {
     @content;
   }
 }
 
-@mixin form-container{
+@mixin form-container {
   display: flex;
   height: 100vh;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url("../../public/images/blobbg.svg");
+  background-repeat: no-repeat;
+  background-position: cover;
+
+  .card {
+    background-color: #fff;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+    padding: 30px 50px;
+    border-radius: 10px;
+  }
 }

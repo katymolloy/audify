@@ -82,7 +82,7 @@ export default function RegisterPage() {
     const validate = [];
 
     // check for invalid/missing data
-    if(unavailUsers.includes(username) === true){
+    if (unavailUsers.includes(username) === true) {
       validate.push(`Username '${username}' is taken, please try a different one`)
     }
     if (username.length < 3) {
@@ -105,7 +105,7 @@ export default function RegisterPage() {
 
 
     setErrorMsg(validate);
-    
+
 
     // run when no data is invalid/missing
     if (validate.length === 0) {
@@ -115,87 +115,89 @@ export default function RegisterPage() {
 
   return (
     <div className="container registerContainer">
-      <Link to={"/"}>Back</Link>
-      <h1>Create Account</h1>
-      <form className="loginForm">
-        {errorMsg.length > 0 && (
+      <div className="card">
+        <Link to={"/"}>Back</Link>
+        <h1>Create Account</h1>
+        <form className="loginForm">
+          {errorMsg.length > 0 && (
             <div className="errorBox">
-                Invalid data:
-                <ul>
-                    {errorMsg.map((error, index) => (
-                        <li key={index}>{error}</li>
-                    ))}
-                </ul>
-            </div>            
-        )}
+              Invalid data:
+              <ul>
+                {errorMsg.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-        <div>
-          <label>
-            Username{" "}
-            <input type="text" onChange={(e) => setUsername((e.target.value).toLowerCase())} />
-          </label>
-        </div>
-        <div>
-          <label>
-            Display Name{" "}
-            <input
-              type="text"
-              onChange={(e) => setDisplayName(e.target.value)}
-            ></input>
-          </label>
-        </div>
+          <div>
+            <label>
+              Username{" "}
+              <input type="text" onChange={(e) => setUsername((e.target.value).toLowerCase())} />
+            </label>
+          </div>
+          <div>
+            <label>
+              Display Name{" "}
+              <input
+                type="text"
+                onChange={(e) => setDisplayName(e.target.value)}
+              ></input>
+            </label>
+          </div>
 
-        {/* <div>
+          {/* <div>
                     <label>Profile Picture <input
                         type="file"
                         onChange={handleImageSubmit}
                     ></input></label>
                 </div> */}
 
-        <div>
-          <label>
-            Email{" "}
-            <input
-              type="text"
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-          </label>
-        </div>
-        <div>
-          <label>
-            Password{" "}
-            <input
-              // type="password"
-              type="text"
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
-          </label>
-        </div>
-        <div>
-          <label>
-            Confirm Password{" "}
-            <input
-              // type="password"
-              type="text"
-              onChange={(e) => setPasswordConfirm(e.target.value)}
-            ></input>
-          </label>
-        </div>
-        <div>
-          Use of Audify requires a Spotify account. Not yet a Spotify user? Sign
-          up{" "}
-          <a href="https://www.spotify.com/us/signup" target="_blank">
-            here!
-          </a>
-        </div>
+          <div>
+            <label>
+              Email{" "}
+              <input
+                type="text"
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </label>
+          </div>
+          <div>
+            <label>
+              Password{" "}
+              <input
+                // type="password"
+                type="text"
+                onChange={(e) => setPassword(e.target.value)}
+              ></input>
+            </label>
+          </div>
+          <div>
+            <label>
+              Confirm Password{" "}
+              <input
+                // type="password"
+                type="text"
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+              ></input>
+            </label>
+          </div>
+          <div>
+            Use of Audify requires a Spotify account. Not yet a Spotify user? Sign
+            up{" "}
+            <a href="https://www.spotify.com/us/signup" target="_blank">
+              here!
+            </a>
+          </div>
 
-        {/* <button type="button" onClick={authorizeSpotify}>Link Spotify</button> */}
-        {/* {authSpotify && */}
-        <button type="submit" onClick={submitHandler}>
-          Create Account
-        </button>
-        {/* } */}
-      </form>
+          {/* <button type="button" onClick={authorizeSpotify}>Link Spotify</button> */}
+          {/* {authSpotify && */}
+          <button type="submit" onClick={submitHandler}>
+            Create Account
+          </button>
+          {/* } */}
+        </form>
+      </div>
     </div>
   );
 }

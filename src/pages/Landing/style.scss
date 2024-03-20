@@ -181,9 +181,38 @@
     }
 
     .albums {
-        width: 30%;
-        height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
         background-image: linear-gradient(rgb(201, 201, 201), rgb(87, 87, 87));
+        width: 450px;
+        height: 100vh;
+        overflow: hidden;
+
+        .card-home {
+            position: absolute;
+            top: 0;
+            animation: scroll 30s linear 1s infinite;
+
+            .AlbumRow {
+                margin: -2px 0;
+                min-width: 150px;
+                min-height: 150px;
+            }
+        }
+
+
+
+    }
+
+    @keyframes scroll {
+        95% {
+            top: -100%;
+        }
+
+        100% {
+            top: 0;
+        }
     }
 
     .dark-mode-toggle {

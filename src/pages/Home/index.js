@@ -20,13 +20,10 @@ export default function HomePage({ currentUser }) {
                 const data = await spotify.home();
                 setAlbums(data.newReleases);
                 setSavedAlbums(data.userAlbums);
-                console.log(data.userAlbums);
             } catch (error) {
                 console.error('Error fetching albums:', error);
             }
         };
-
- 
         fetchAlbums();
     }, []);
 
@@ -44,7 +41,7 @@ export default function HomePage({ currentUser }) {
                             <Link to={`albums/${album.name}`}>
                                 <h3>{album.name}</h3>
                             </Link>
-                            <a href={album.spotify} target="_blank" rel="noopener noreferrer">{album.name}</a>
+                            <p>{album.artist}</p>
                         </div>
                     ))}
                 </div>
@@ -56,7 +53,6 @@ export default function HomePage({ currentUser }) {
                             <Link to={`albums/${album.name}`}>
                                 <h3>{album.name}</h3>
                             </Link>
-                            <a href={album.spotify} target="_blank" rel="noopener noreferrer">{album.name}</a>
                         </div>
                     ))}
                 </div>

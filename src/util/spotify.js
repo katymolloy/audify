@@ -5,12 +5,12 @@ let accessToken = "";
 // Will have to create a search bar in order to test this, however using the documentation this should be correct without testing
 const Spotify = {
 
-    getAccessToken(forceRefresh = false) {
+    getAccessToken() {
 
-        const storedAccessToken = localStorage.getItem('accessToken');
-        if (storedAccessToken && !forceRefresh) {
+        //const storedAccessToken = localStorage.getItem('accessToken');
+        if (accessToken) {
             // If access token is found in localStorage and forceRefresh is false, return it
-            return storedAccessToken;
+            return accessToken;
         }
 
         const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
@@ -20,7 +20,7 @@ const Spotify = {
             accessToken = accessTokenMatch[1];
             const expiresIn = Number(expiresInMatch[1]);
             window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
-            localStorage.setItem('accessToken', accessToken);
+            //localStorage.setItem('accessToken', accessToken);
             window.history.pushState("Access Token", null, "/");
             return accessToken;
         } else if (!accessToken) {
@@ -45,10 +45,10 @@ const Spotify = {
                 if (!jsonResponse.albums) {
                     return [];
                 }
-                return jsonResponse.albums.items.map(album => ({
+                return jsonResponse.albums.items.map((album) => ({
                     id: album.id,
                     name: album.name,
-                    spotify: album.external_urls.spotify,
+                    artist: album.artists[0].name,
                     cover: album.images[0].url,
                 }));
             });
@@ -63,11 +63,11 @@ const Spotify = {
                 if (!jsonResponse.items) {
                     return [];
                 }
-                return jsonResponse.items.map(item => ({
-                    id: item.album.id,
-                    name: item.album.name,
-                    spotify: item.album.external_urls.spotify,
-                    cover: item.album.images[0].url,
+                return jsonResponse.items.map((album) => ({
+                    id: album.id,
+                    name: album.name,
+                    //artist: album.artists[0].name,
+                    cover: album.images[0].url,
                 }));
             });
 

@@ -63,12 +63,25 @@ $black-color: #191414;
   .card {
     background-color: #fff;
     box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
-    padding: 30px 50px;
+    padding: 30px 70px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    .backLink {
+      width: 100%;
+      margin-bottom: -62px;
+      margin-top: 15px;
+      font-size: 32px;
+      color: #000;
+      transition: .3s;
+
+      &:hover {
+        color: #727272;
+      }
+    }
 
     form {
       display: flex;
@@ -91,17 +104,24 @@ $black-color: #191414;
         margin: 10px;
         width: 288px;
         padding: 15px;
+        margin-top: 30px;
         border: none;
         border-radius: 50px;
         color: #fff;
         background-color: #000;
+        cursor: pointer;
+        transition: .3s;
+
+        &:hover {
+          transform: translateY(-3px);
+        }
       }
     }
   }
 
   .logo {
     width: 50px;
-    margin: 10px 0;
+    margin: 15px 0;
   }
 
   .title {
@@ -110,5 +130,7 @@ $black-color: #191414;
 
   .sub {
     text-transform: capitalize;
+    font-size: 18px;
+    margin-bottom: 20px;
   }
 }

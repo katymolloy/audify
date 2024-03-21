@@ -7,6 +7,7 @@ import { db } from "../../firebase";
 import { redirectUri, clientId } from "../../util/spotify";
 import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -116,9 +117,9 @@ export default function RegisterPage() {
   return (
     <div className="container registerContainer">
       <div className="card">
-        <Link to={"/"}>Back</Link>
+        <Link to={"/"} className="backLink"><IoArrowBack /></Link>
         <img className="logo" src="/images/AudifyLogo.png" alt="Audify Logo"></img>
-        <h1 className="title">Create An Account</h1>
+        <h1 className="title">Create Account</h1>
         <p className="sub">Enter All Fields to get set up</p>
         <form className="loginForm">
           {errorMsg.length > 0 && (
@@ -165,11 +166,9 @@ export default function RegisterPage() {
               onChange={(e) => setPasswordConfirm(e.target.value)}
             ></input>
           </div>
-          <div>
-            Use of Audify requires a Spotify account. <br></br>Not yet a Spotify user? Sign
-            up{" "}
-            <a href="https://www.spotify.com/us/signup" target="_blank">
-              here!
+          <div className="signUp">
+            Use of Audify requires a Spotify account. <br></br>Not yet a Spotify user?
+            <a href="https://www.spotify.com/us/signup" target="_blank"> Sign up here
             </a>
           </div>
 

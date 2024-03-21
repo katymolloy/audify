@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import './login.scss'
 import { useNavigate } from "react-router-dom";
 import Spotify from "../../util/spotify";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function LoginPage({ onLogin }) {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ export default function LoginPage({ onLogin }) {
   return (
     <div className="container loginContainer">
       <div className="card">
-        <Link className="back" to={"/"}>Back</Link>
+        <Link className="backLink" to={"/"}><IoArrowBack /></Link>
         <img className="logo" src="/images/AudifyLogo.png" alt="Audify Logo"></img>
         <h1 className="title">Welcome Back</h1>
         <p className="sub">Login to get started</p>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa6";
 
 
 export default function Review() {
@@ -48,7 +48,7 @@ export default function Review() {
 
                     <br />
 
-                    {[...Array(5)].map((star, i) => {
+                    {[...Array(6)].map((star, i) => {
                         const ratingValue = i + 1;
 
                         return (
@@ -59,7 +59,8 @@ export default function Review() {
                                     value={rating}
                                     onClick={() => setRating(ratingValue)}
                                 />
-                                <CiStar
+                                <FaStar
+
                                     className='star'
                                     color={ratingValue < rating ? '#1db954' : '#fff'}
                                     onMouseEnter={() => setHover(ratingValue)}

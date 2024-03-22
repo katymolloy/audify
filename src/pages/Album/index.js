@@ -13,6 +13,8 @@ export default function AlbumPage(){
     return(
         
         <>
+
+            <Header />
             
             {/* The Album Itself Section */}
             <div className = 'album-section'>
@@ -52,6 +54,8 @@ export default function AlbumPage(){
             {/* Reviews Section */}
             <h2>REVIEWS</h2>
             <hr />
+
+            <Footer />
         
         </>
     );

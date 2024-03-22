@@ -4,7 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { BsPersonCircle } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import "./header-styles.scss";
 
@@ -34,8 +34,9 @@ export default function Header() {
             onSubmit={search}
           />
           <button type="submit">
-            <IoSearchOutline />
-            <NavLink to = '/album' />
+            <Link to = '/album'>
+              <IoSearchOutline />
+            </Link>
           </button>
         </form>
 

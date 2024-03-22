@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Spotify from "../../util/spotify";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function LoginPage({ onLogin, setLogin }) {
+export default function LoginPage({ onLogin, setLogin , loginError}) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +20,9 @@ export default function LoginPage({ onLogin, setLogin }) {
     await onLogin(email, password);
     if (setLogin !== false) {
       successfulLogin();
+    }else{
+      let errorArr = [loginError]
+      SetErrorMsg(errorArr)
     }
 
   }

@@ -17,20 +17,20 @@ function App() {
   const [displayName, setDisplayName] = useState('')
   const [username, setUsername] = useState('');
   const [userId, setUserId] = useState('');
-  const [validLogin, setValidLogin] = useState(false)
+  const [validLogin, setValidLogin] = useState(false);
+  const [loginError, setLoginError] = useState('')
 
   const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log('here', userCredential.user.uid)
         setUserId(userCredential.user.uid)
-        // getUserData(userCredential.user.uid)
         setValidLogin(true)
       })
       .catch((err) => {
-        setValidLogin(false)
         const errorCode = err.code;
         console.log(errorCode)
+        setLoginError(errorCode)
       })
   }
 
@@ -69,6 +69,7 @@ function App() {
           element={<LoginPage
             onLogin={login}
             setLogin={validLogin}
+            loginError={loginError}
           />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/home' element={<HomePage currentUser={userId} userDisplay={displayName} username={username} />} />

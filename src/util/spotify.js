@@ -48,7 +48,7 @@ const Spotify = {
                 return jsonResponse.albums.items.map((album) => ({
                     id: album.id,
                     name: album.name,
-                    artist: album.artists[0].name,
+                    //artist: album.artists[0].name,
                     cover: album.images[0].url,
                 }));
             });

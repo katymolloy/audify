@@ -1,5 +1,5 @@
 import './styles/app.scss';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import LandingPage from './pages/Landing';
 import LoginPage from './pages/Login';
@@ -8,12 +8,12 @@ import HomePage from './pages/Home';
 import AccountPage from './pages/Account';
 import AlbumPage from './pages/Album';
 import NotFound from './pages/NotFound';
-
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, getAuth } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 function App() {
+  // const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   const login = (email, password) => {
@@ -36,6 +36,7 @@ function App() {
 
 
 
+
   const getUserData = async () => {
     const querySnap = await getDocs(collection, db, 'users', user);
     querySnap.forEach((doc) => {
@@ -53,7 +54,7 @@ function App() {
             onLogin={login}
           />} />
         <Route path='/register' element={<RegisterPage />} />
-        <Route path='/home' element={<HomePage currentUser={user} />} />
+        <Route path='/home' element={<HomePage currentUser={user}  />} />
         <Route path='/account' element={<AccountPage />} />
         <Route path='/album' element={<AlbumPage />} />
         <Route path='*' element={<NotFound />} />

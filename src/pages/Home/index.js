@@ -12,7 +12,18 @@ export default function HomePage({ currentUser }) {
     const [albums, setAlbums] = useState([]);
     const [savedAlbums, setSavedAlbums] = useState([]);
 
-    // const navigate = useNavigation();
+     const navigate = useNavigation();
+
+
+    const logOutUser = () => {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+          console.log('logged out')
+          navigate('/');
+        }).catch((error) => {
+          console.log('Error signing out ' + error);
+        })
+      }
 
     useEffect(() => {
         const fetchAlbums = async () => {
@@ -29,7 +40,7 @@ export default function HomePage({ currentUser }) {
 
     return (
         <>
-            <Header></Header>
+            <Header onLogout={logOutUser}></Header>
             <div className='homeContainer'>
                 <h1>Welcome Back user_name, Here's What We've Been Listening To...</h1>
                 <h2>New Releases</h2>

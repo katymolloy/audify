@@ -8,7 +8,7 @@ import { signOut, getAuth } from 'firebase/auth';
 import "./home.scss";
 
 
-export default function HomePage({ currentUser }) {
+export default function HomePage({ currentUser, displayName, username }) {
 
     const [albums, setAlbums] = useState([]);
     const [savedAlbums, setSavedAlbums] = useState([]);
@@ -41,9 +41,9 @@ export default function HomePage({ currentUser }) {
 
     return (
         <>
-            <Header onLogout={logOutUser}></Header>
+            <Header onLogout={logOutUser}  username={username}></Header>
             <div className='homeContainer'>
-                <h1>Welcome Back user_name, Here's What We've Been Listening To...</h1>
+                <h1>Welcome Back {displayName}, Here's What We've Been Listening To...</h1>
                 <h2>New Releases</h2>
                 <div className="albums">
                     {/* Map through the albums array and display each album */}

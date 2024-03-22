@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import "./header-styles.scss";
 
-export default function Header({onLogout}) {
+export default function Header({onLogout, username}) {
   const search = () => {
     console.log("here");
   };
@@ -23,12 +23,12 @@ export default function Header({onLogout}) {
 
         <a className="user-section" href="/account">
           <BsPersonCircle />
-          User_Name <IoIosArrowDown className="arrow-down" />
+          {username} <IoIosArrowDown className="arrow-down" />
       
         </a>
         <button type="button" onClick={onLogout}>Log Out</button>
 
-        
+
         <form action="" className="search-bar">
           <input
             type="text"

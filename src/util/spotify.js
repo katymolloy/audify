@@ -42,6 +42,8 @@ const Spotify = {
         })
             .then(response => response.json())
             .then(jsonResponse => {
+                console.log("New Albums:");
+                console.log(jsonResponse);
                 if (!jsonResponse.albums) {
                     return [];
                 }
@@ -60,6 +62,7 @@ const Spotify = {
         })
             .then(response => response.json())
             .then(jsonResponse => {
+                console.log("User Albums:");
                 console.log(jsonResponse);
                 if (!jsonResponse.items) {
                     return [];

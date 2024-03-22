@@ -8,7 +8,7 @@ import { signOut, getAuth } from 'firebase/auth';
 import "./home.scss";
 
 
-export default function HomePage({ currentUser, userDisplay, username }) {
+export default function HomePage({ userDisplay, username }) {
 
     const [albums, setAlbums] = useState([]);
     const [savedAlbums, setSavedAlbums] = useState([]);

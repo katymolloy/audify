@@ -1,14 +1,13 @@
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "../../firebase";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth, db} from '../../firebase'
+import { doc, getDoc } from "firebase/firestore";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import './login.scss'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Spotify from "../../util/spotify";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function LoginPage({ onLogin, setLogin , loginError}) {
+export default function LoginPage({ updateUser, updateUserData }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,14 +16,23 @@ export default function LoginPage({ onLogin, setLogin , loginError}) {
   const loginHandler = async (e) => {
     e.preventDefault();
 
-    await onLogin(email, password);
-    if (setLogin !== false) {
-      successfulLogin();
-    }else{
-      let errorArr = [loginError]
-      SetErrorMsg(errorArr)
-    }
+    login(email, password)
 
+  }
+
+  const login = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log('here',)
+        successfulLogin();
+        updateUser(userCredential.user.uid)
+        getUserData(userCredential.user.uid);
+      })
+      .catch((err) => {
+        const errorCode = err.code;
+        console.log(errorCode)
+
+      })
   }
 
   const successfulLogin = () => {
@@ -33,6 +41,22 @@ export default function LoginPage({ onLogin, setLogin , loginError}) {
       setTimeout(() => {
         navigate('/home');
       }, 3000);
+    }
+  }
+
+  const getUserData = async (user) => {
+    console.log("Fetching user data for user:", user);
+    const docRef = doc(db, "users", user);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+
+      updateUserData(docSnap.data().username, docSnap.data().display)
+    
+
+    } else {
+      console.log("No such document for user:", user);
     }
   }
 

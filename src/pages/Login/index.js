@@ -32,7 +32,7 @@ export default function LoginPage({ onLogin }) {
         onLogin(email, password);
         setTimeout(() => {
           navigate('/home');
-        }, 2000);
+        }, 3000);
       }
     }
   }

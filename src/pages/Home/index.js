@@ -53,6 +53,7 @@ export default function HomePage({ currentUser }) {
                             <Link to={`albums/${album.name}`}>
                                 <h3>{album.name}</h3>
                             </Link>
+                            <p>{album.artist}</p>
                         </div>
                     ))}
                 </div>

@@ -45,11 +45,11 @@ const Spotify = {
                 if (!jsonResponse.albums) {
                     return [];
                 }
-                return jsonResponse.albums.items.map((album) => ({
-                    id: album.id,
-                    name: album.name,
-                    //artist: album.artists[0].name,
-                    cover: album.images[0].url,
+                return jsonResponse.albums.items.map(newAlbum => ({
+                    id: newAlbum.id,
+                    name: newAlbum.name,
+                    artist: newAlbum.artists[0].name,
+                    cover: newAlbum.images[0].url,
                 }));
             });
         // Fetch user's albums
@@ -60,14 +60,15 @@ const Spotify = {
         })
             .then(response => response.json())
             .then(jsonResponse => {
+                console.log(jsonResponse);
                 if (!jsonResponse.items) {
                     return [];
                 }
-                return jsonResponse.items.map((album) => ({
-                    id: album.id,
-                    name: album.name,
-                    //artist: album.artists[0].name,
-                    cover: album.images[0].url,
+                return jsonResponse.items.map(userAlbum => ({
+                    id: userAlbum.album.id,
+                    name: userAlbum.album.name,
+                    artist: userAlbum.album.artists[0].name,
+                    cover: userAlbum.album.images[0].url,
                 }));
             });
 

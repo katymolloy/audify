@@ -49,7 +49,7 @@ export default function LandingPage() {
         </div>
       </div>
       <div className="albums">
-        <div class="card-home">
+        <div className="card-home">
           <img src="/images/Row1.png" className="AlbumRow" alt="Album Covers"></img>
           <img src="/images/Row2.png" className="AlbumRow" alt="Album Covers"></img>
           <img src="/images/Row3.png" className="AlbumRow" alt="Album Covers"></img>

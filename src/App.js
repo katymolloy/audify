@@ -10,49 +10,52 @@ import NotFound from './pages/NotFound';
 import { signInWithEmailAndPassword, } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   // const navigate = useNavigate();
- const [displayName, setDisplayName] = useState('')
- const [username, setUsername] = useState('');
- const [userId, setUserId] = useState('')
+  const [displayName, setDisplayName] = useState('')
+  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
+  const [validLogin, setValidLogin] = useState(false)
 
   const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log('here', userCredential.user.uid)
-        getUserData(userCredential.user.uid)
-
-
+        setUserId(userCredential.user.uid)
+        // getUserData(userCredential.user.uid)
+        setValidLogin(true)
       })
       .catch((err) => {
+        setValidLogin(false)
         const errorCode = err.code;
-        console.log(errorCode);
+        console.log(errorCode)
       })
   }
 
 
 
-
+  useEffect(() => {
+    if (userId) {
+      getUserData(userId); // Call getUserData when userId state changes
+    }
+  }, [userId]);
 
 
   const getUserData = async (user) => {
     console.log("Fetching user data for user:", user);
     const docRef = doc(db, "users", user);
     const docSnap = await getDoc(docRef);
-  
+
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
-      let userData = docSnap.data();
-      // let username = userData.username;
-      // let display = userData.display
+
       setUsername(docSnap.data().username);
       setDisplayName(docSnap.data().display)
       setUserId(docSnap.data().uid)
 
     } else {
-      // docSnap.data() will be undefined in this case
       console.log("No such document for user:", user);
     }
   }
@@ -65,6 +68,7 @@ function App() {
         <Route path='/login'
           element={<LoginPage
             onLogin={login}
+            setLogin={validLogin}
           />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/home' element={<HomePage currentUser={userId} userDisplay={displayName} username={username} />} />

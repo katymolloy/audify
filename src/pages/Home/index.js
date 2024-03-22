@@ -8,25 +8,25 @@ import { signOut, getAuth } from 'firebase/auth';
 import "./home.scss";
 
 
-export default function HomePage({ currentUser, displayName, username }) {
+export default function HomePage({ currentUser, userDisplay, username }) {
 
     const [albums, setAlbums] = useState([]);
     const [savedAlbums, setSavedAlbums] = useState([]);
-
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
     const logOutUser = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
-          console.log('logged out')
-          navigate('/');
+            console.log('logged out')
+            navigate('/');
         }).catch((error) => {
-          console.log('Error signing out ' + error);
+            console.log('Error signing out ' + error);
         })
-      }
+    }
 
     useEffect(() => {
+
         const fetchAlbums = async () => {
             try {
                 const data = await spotify.home();
@@ -41,36 +41,41 @@ export default function HomePage({ currentUser, displayName, username }) {
 
     return (
         <>
-            <Header onLogout={logOutUser}  username={username}></Header>
-            <div className='homeContainer'>
-                <h1>Welcome Back {displayName}, Here's What We've Been Listening To...</h1>
-                <h2>New Releases</h2>
-                <div className="albums">
-                    {/* Map through the albums array and display each album */}
-                    {albums.map((album) => (
-                        <div key={album.id} className="album">
-                            <img src={album.cover} alt={album.name} />
-                            <Link to={`albums/${album.name}`}>
-                                <h3>{album.name}</h3>
-                            </Link>
-                            <p>{album.artist}</p>
-                        </div>
-                    ))}
+            <Header onLogout={logOutUser} username={username}></Header>
+          
+                <div className='homeContainer'>
+                    <h1>Welcome Back {userDisplay}, Here's What We've Been Listening To...</h1>
+                    <h2>New Releases</h2>
+                    <div className="albums">
+                        {/* Map through the albums array and display each album */}
+                        {albums.map((album) => (
+                            <div key={album.id} className="album">
+                                <img src={album.cover} alt={album.name} />
+                                <Link to={`albums/${album.name}`}>
+                                    <h3>{album.name}</h3>
+                                </Link>
+                                <p>{album.artist}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <h2>Saved Albums</h2>
+                    <div className="albums"> {/* Add a div for saved albums */}
+                        {savedAlbums.map((album) => (
+                            <div key={album.id} className="album">
+                                <img src={album.cover} alt={album.name} />
+                                <Link to={`albums/${album.name}`}>
+                                    <h3>{album.name}</h3>
+                                </Link>
+                                <p>{album.artist}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <h2>Latest Reviews</h2>
                 </div>
-                <h2>Saved Albums</h2>
-                <div className="albums"> {/* Add a div for saved albums */}
-                    {savedAlbums.map((album) => (
-                        <div key={album.id} className="album">
-                            <img src={album.cover} alt={album.name} />
-                            <Link to={`albums/${album.name}`}>
-                                <h3>{album.name}</h3>
-                            </Link>
-                            <p>{album.artist}</p>
-                        </div>
-                    ))}
-                </div>
-                <h2>Latest Reviews</h2>
-            </div>
+        
+
+
+
             <Footer />
         </>
     )

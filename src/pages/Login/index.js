@@ -8,32 +8,28 @@ import { useNavigate } from "react-router-dom";
 import Spotify from "../../util/spotify";
 import { IoArrowBack } from "react-icons/io5";
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage({ onLogin, setLogin }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, SetErrorMsg] = useState([]);
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
-    const validate = [];
 
-    if (email.length < 8) {
-      validate.push('Please enter a valid email');
+    await onLogin(email, password);
+    if (setLogin !== false) {
+      successfulLogin();
     }
-    if (password.length < 5) {
-      validate.push('Please enter a valid password');
-    }
-    SetErrorMsg(validate);
 
-    if (validate.length === 0) {
-      const accessToken = Spotify.getAccessToken();
-      if (accessToken) {
-        onLogin(email, password);
-        setTimeout(() => {
-          navigate('/home');
-        }, 3000);
-      }
+  }
+
+  const successfulLogin = () => {
+    const accessToken = Spotify.getAccessToken();
+    if (accessToken) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
     }
   }
 

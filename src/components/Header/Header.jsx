@@ -4,6 +4,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { BsPersonCircle } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 
+import { NavLink } from 'react-router-dom';
+
 import "./header-styles.scss";
 
 export default function Header() {
@@ -27,19 +29,19 @@ export default function Header() {
         <form action="" className="search-bar">
           <input
             type="text"
-            value=""
             placeholder="Search . . ."
             maxLength="100"
-            onChange={search}
+            onSubmit={search}
           />
           <button type="submit">
             <IoSearchOutline />
+            <NavLink to = '/album' />
           </button>
         </form>
 
-        <div className="add-review-section">
+        {/* <div className="add-review-section">
           <button>Add Review</button>
-        </div>
+        </div> */}
       </header>
     </>
   );

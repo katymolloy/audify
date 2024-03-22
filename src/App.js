@@ -55,7 +55,7 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/home' element={<HomePage currentUser={user} />} />
         <Route path='/account' element={<AccountPage />} />
-        <Route path='/album:albumName' element={<AlbumPage />} />
+        <Route path='/album' element={<AlbumPage />} />
         <Route path='*' element={<NotFound />} />
 
       </Routes>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { useNavigation, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import spotify from "../../util/spotify";
+import { signOut, getAuth } from 'firebase/auth';
 
 import "./home.scss";
 
@@ -12,7 +13,7 @@ export default function HomePage({ currentUser }) {
     const [albums, setAlbums] = useState([]);
     const [savedAlbums, setSavedAlbums] = useState([]);
 
-     const navigate = useNavigation();
+     const navigate = useNavigate();
 
 
     const logOutUser = () => {

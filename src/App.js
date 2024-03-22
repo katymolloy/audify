@@ -8,7 +8,7 @@ import HomePage from './pages/Home';
 import AccountPage from './pages/Account';
 import AlbumPage from './pages/Album';
 import NotFound from './pages/NotFound';
-import { signInWithEmailAndPassword, signOut, getAuth } from "firebase/auth";
+import { signInWithEmailAndPassword, } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
 

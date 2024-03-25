@@ -4,12 +4,15 @@ import Footer from '../../components/Footer/Footer';
 import { MdThumbUp } from "react-icons/md";
 import { MdOutlineThumbUp } from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs";
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
 
 
 import "./account.scss";
 
 
 export default function AccountPage() {
+
+    const currentUser = {};
 
     return (
         <>
@@ -24,7 +27,8 @@ export default function AccountPage() {
                         </div>
                     <h2>Options</h2>
                     <div className='accountOptions'>
-                        <p><BsPersonCircle />Profile Picture: icon.jpg</p><br/> {/*can eventually upload file to database to have custom icon on header*/}
+                        <p>Profile Picture:</p><br/> {/*can eventually upload file to database to have custom icon on header*/}
+                        <ImageUpload/>
                     </div>
             </div>
             <Footer/>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { useNavigation, Link } from 'react-router-dom';
-import spotify from "../../util/spotify";
+import spotify from "../../database/spotify";
 
 import "./home.scss";
 
@@ -20,7 +20,7 @@ export default function HomePage({ currentUser }) {
                 const data = await spotify.home();
                 setAlbums(data.newReleases);
                 setSavedAlbums(data.userAlbums);
-                console.log(data.userAlbums);
+                // console.log(data.userAlbums);
             } catch (error) {
                 console.error('Error fetching albums:', error);
             }
@@ -48,6 +48,7 @@ export default function HomePage({ currentUser }) {
                         </div>
                     ))}
                 </div>
+
                 <h2>Saved Albums</h2>
                 <div className="albums"> {/* Add a div for saved albums */}
                     {savedAlbums.map((album) => (

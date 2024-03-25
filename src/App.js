@@ -6,7 +6,10 @@ import RegisterPage from './pages/Register';
 import HomePage from './pages/Home';
 import AccountPage from './pages/Account';
 import AlbumPage from './pages/Album';
+import AboutPage from './pages/About';
+import ReviewPage from './pages/LeaveReview';
 import NotFound from './pages/NotFound';
+
 import { signInWithEmailAndPassword, } from "firebase/auth";
 
 import { useState, useEffect } from 'react';
@@ -38,6 +41,8 @@ function App() {
         <Route path='/home' element={<HomePage currentUser={userId} userDisplay={displayName} username={username} />} />
         <Route path='/account' element={<AccountPage />} />
         <Route path='/album' element={<AlbumPage />} />
+        <Route path='/about' element={<AboutPage />} />
+        <Route path='/review' element={<ReviewPage />} />
         <Route path='*' element={<NotFound />} />
 
       </Routes>

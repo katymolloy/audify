@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-import { CiStar } from "react-icons/ci";
+import { FaStar } from "react-icons/fa6";
+
+import './review.scss';
 
 
 export default function Review() {
@@ -21,60 +23,62 @@ export default function Review() {
 
         <form className='review-component' onSubmit={handleReviewSubmit}>
 
-            {/* Review Message Section */}
-            <div className='review-message'>
+            <div className='review-container'>
 
-                <label>
-                    REVIEW MESSAGE
+                {/* Review Message Section -- This is the 1st half of the review section */}
+                <div className='review-message'>
+                    <label>
+                        <strong>REVIEW MESSAGE</strong>
 
-                    <br />
+                        <br />
 
-                    <textarea
-                        value={reviewMessage}
-                        onChange={(event) => setReviewMessage(event.target.value)}
-                        placeholder='Write a review. . .'
-                        maxLength='1000'
-                    />
-                </label>
+                        <textarea
+                            value={reviewMessage}
+                            onChange={(event) => setReviewMessage(event.target.value)}
+                            placeholder='Write a review. . .'
+                            maxLength='500'
+                        />
+                    </label>
 
-            </div>
-
-
-            {/* Rating Section */}
-            <div className='rating-section'>
-
-                <label>
-                    RATING
-
-                    <br />
-
-                    {[...Array(5)].map((star, i) => {
-                        const ratingValue = i + 1;
-
-                        return (
-                            <label>
-                                <input
-                                    type='radio'
-                                    name='rating'
-                                    value={rating}
-                                    onClick={() => setRating(ratingValue)}
-                                />
-                                <CiStar
-                                    className='star'
-                                    color={ratingValue < rating ? '#1db954' : '#fff'}
-                                    onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(null)}
-                                />
-                            </label>
-                        );
-                    })}
-                </label>
-
-            </div>
+                </div>
 
 
-            <div className="add-review-button">
-                <button>SUBMIT</button>
+                {/* Rating Section -- This is the 2nd half of the review section */}
+                <div className='rating-section'>
+
+                    <label>
+                        <strong>RATING</strong>
+
+                        <br />
+
+                        {[...Array(5)].map((star, i) => {
+                            const ratingValue = i + 1;
+
+                            return (
+                                <label key={i}>
+                                    <input
+                                        type='radio'
+                                        name='rating'
+                                        value={ratingValue}
+                                        onChange={() => setRating(ratingValue)}
+                                    />
+                                    <FaStar
+                                        className='star'
+                                        color={ratingValue <= (hover || rating) ? '#1db954' : '#ededed'}
+                                        onMouseEnter={() => setHover(ratingValue)}
+                                        onMouseLeave={() => setHover(null)}
+                                    />
+                                </label>
+                            );
+                        })}
+                    </label>
+
+                    <div className="add-review-button">
+                        <button>SUBMIT</button>
+                    </div>
+
+                </div>
+
             </div>
 
         </form>

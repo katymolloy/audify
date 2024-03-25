@@ -7,6 +7,7 @@ import { db } from "../../database/firebase";
 import { redirectUri, clientId } from "../../util/spotify";
 import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -86,7 +87,7 @@ export default function RegisterPage() {
     const validate = [];
 
     // check for invalid/missing data
-    if(unavailUsers.includes(username) === true){
+    if (unavailUsers.includes(username) === true) {
       validate.push(`Username '${username}' is taken, please try a different one`)
     }
     if (username.length < 3) {
@@ -109,7 +110,7 @@ export default function RegisterPage() {
 
 
     setErrorMsg(validate);
-    
+
 
     // run when no data is invalid/missing
     if (validate.length === 0) {
@@ -119,87 +120,70 @@ export default function RegisterPage() {
 
   return (
     <div className="container registerContainer">
-      <Link to={"/"}>Back</Link>
-      <h1>Create Account</h1>
-      <form className="loginForm">
-        {errorMsg.length > 0 && (
+      <div className="card">
+        <Link to={"/"} className="backLink"><IoArrowBack /></Link>
+        <img className="logo" src="/images/AudifyLogo.png" alt="Audify Logo"></img>
+        <h1 className="title">Create Account</h1>
+        <p className="sub">Enter All Fields to get set up</p>
+        <form className="loginForm">
+          {errorMsg.length > 0 && (
             <div className="errorBox">
-                Invalid data:
-                <ul>
-                    {errorMsg.map((error, index) => (
-                        <li key={index}>{error}</li>
-                    ))}
-                </ul>
-            </div>            
-        )}
+              Invalid data:
+              <ul>
+                {errorMsg.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-        <div>
-          <label>
-            Username{" "}
-            <input type="text" onChange={(e) => setUsername((e.target.value).toLowerCase())} />
-          </label>
-        </div>
-        <div>
-          <label>
-            Display Name{" "}
-            <input
-              type="text"
-              onChange={(e) => setDisplayName(e.target.value)}
-            ></input>
-          </label>
-        </div>
+          <div>
+            <input placeholder="User Name" type="text" onChange={(e) => setUsername((e.target.value).toLowerCase())} />
+          </div>
+          <div>
+            <input placeholder="Display Name" type="text" onChange={(e) => setDisplayName(e.target.value)}></input>
+          </div>
 
-        {/* <div>
+          {/* <div>
                     <label>Profile Picture <input
                         type="file"
                         onChange={handleImageSubmit}
                     ></input></label>
                 </div> */}
 
-        <div>
-          <label>
-            Email{" "}
+          <div>
+            <input placeholder="Email Address" type="text" onChange={(e) => setEmail(e.target.value)}></input>
+          </div>
+          <div>
             <input
-              type="text"
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-          </label>
-        </div>
-        <div>
-          <label>
-            Password{" "}
-            <input
+              placeholder="Password"
               // type="password"
               type="text"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-          </label>
-        </div>
-        <div>
-          <label>
-            Confirm Password{" "}
+          </div>
+          <div>
             <input
+              placeholder="Confirm Password"
               // type="password"
               type="text"
               onChange={(e) => setPasswordConfirm(e.target.value)}
             ></input>
-          </label>
-        </div>
-        <div>
-          Use of Audify requires a Spotify account. Not yet a Spotify user? Sign
-          up{" "}
-          <a href="https://www.spotify.com/us/signup" target="_blank">
-            here!
-          </a>
-        </div>
+          </div>
+          <div className="signUp">
+            Use of Audify requires a Spotify account. <br></br>Not yet a Spotify user?
+            <a href="https://www.spotify.com/us/signup" target="_blank"> Sign up here
+            </a>
+          </div>
 
-        {/* <button type="button" onClick={authorizeSpotify}>Link Spotify</button> */}
-        {/* {authSpotify && */}
-        <button type="submit" onClick={submitHandler}>
-          Create Account
-        </button>
-        {/* } */}
-      </form>
+          {/* <button type="button" onClick={authorizeSpotify}>Link Spotify</button> */}
+          {/* {authSpotify && */}
+          <button type="submit" onClick={submitHandler}>
+            Create Account
+          </button>
+          {/* } */}
+        </form>
+      </div>
     </div>
   );
 }

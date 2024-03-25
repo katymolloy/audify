@@ -21,11 +21,11 @@ export default function Footer() {
       <div className="links-section">
         <div className="title">Quick Links</div>
 
-        <a href="#">Leave a Review</a>
+        <a href="/review">Leave a Review</a>
 
         <a href="/account">My Account</a>
 
-        <a href="#">About Us</a>
+        <a href="/about">About Us</a>
 
       </div>
 

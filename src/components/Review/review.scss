@@ -1,40 +1,152 @@
+@import './../../styles/variables.scss';
+
+// .review-component {
+
+//     .review-container {
+
+//         display: flex;
+//         flex: 1; 
+
+//     }
+
+//     div.review-message {
+//         width: 50%;
+//         textarea {
+//             resize: none;
+//             padding: 0.8rem;
+//             height: 7rem;
+//             width: 30rem;
+//             border-radius: 20px;
+//             border-width: thin;
+//         }
+//     }
+
+//     div.rating-section {
+//         width: 50%;
+//         input[type='radio'] {
+//             display: none;
+//         }
+
+//         .star {
+//             cursor: pointer;
+//             transition: color 200ms;
+//         }
+
+//         svg {
+//             font-size: 3rem;
+
+//             &:hover {
+//                 color: $green-color-hover;
+//             }
+//         }
+//     }
+
+
+//     .add-review-button {
+
+//         display: flex;
+//         align-items: center;
+//         margin: 0 2rem 0 0;
+
+//         button {
+//             background-color: $green-color;
+//             color: $black-color;
+//             border-radius: 3rem;
+//             border: none;
+//             padding: 0.5rem 2rem;
+//             width: 100%;
+//             max-width: 10rem;
+//             font-size: 1rem;
+//             font-weight: bold;
+//             cursor: pointer;
+
+//             &:hover {
+//                 background-color: $green-color-hover;
+//             }
+
+//         }
+
+//     }
+
+// }
+
 .review-component {
+    .review-container {
+        display: flex;
+    }
+
+    .review-message,
+    .rating-section {
+        flex: 1;
+    }
+
+    .review-message {
+        textarea {
+            resize: none;
+            padding: 0.8rem;
+            height: 7rem;
+            width: 100%;
+            max-width: 30rem;
+            border-radius: 20px;
+            border-width: thin;
+        }
+    }
 
     .rating-section {
-        input[type = 'radio'] {
+        input[type='radio'] {
             display: none;
         }
 
         .star {
             cursor: pointer;
+            transition: color 200ms;
+            margin-right: 0.5rem;
+        }
+
+        svg {
+            font-size: 3rem;
+
+            &:hover {
+                color: $green-color-hover;
+            }
         }
     }
 
-
     .add-review-button {
-
         display: flex;
         align-items: center;
-        margin: 0 2rem 0 0;
+        margin: 2.5rem 2rem 0 0;
 
         button {
             background-color: $green-color;
             color: $black-color;
-            border: none;
             border-radius: 3rem;
+            border: none;
             padding: 0.5rem 2rem;
             width: 100%;
-            max-width: 10rem;
-            font-size: 1rem;
+            max-width: 15rem;
+            font-size: 1.5rem;
             font-weight: bold;
             cursor: pointer;
 
             &:hover {
                 background-color: $green-color-hover;
             }
+        }
+    }
 
+    @include breakpoint-small {
+
+        display: block;
+
+        .review-message {
+            width: 100%;
+        }
+
+        .rating-section {
+            margin-left: 0;
+            width: 100%;
         }
 
     }
-
 }

@@ -27,7 +27,7 @@ export default function AccountPage() {
                         </div>
                     <h2>Options</h2>
                     <div className='accountOptions'>
-                        <p>Profile Picture:</p><br/> {/*can eventually upload file to database to have custom icon on header*/}
+                        <p>Profile Picture:</p> {/*can eventually upload file to database to have custom icon on header*/}
                         <ImageUpload/>
                     </div>
             </div>

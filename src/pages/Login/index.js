@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {auth, db} from '../../firebase'
+import {auth, db} from '../../database/firebase'
 import { doc, getDoc } from "firebase/firestore";
 import { useState } from "react";
 import './login.scss'

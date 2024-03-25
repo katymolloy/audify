@@ -1,5 +1,5 @@
 import './styles/app.scss';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/Landing';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
@@ -10,7 +10,7 @@ import AboutPage from './pages/About';
 import ReviewPage from './pages/LeaveReview';
 import NotFound from './pages/NotFound';
 
-import { signInWithEmailAndPassword, } from "firebase/auth";
+
 
 import { useState, useEffect } from 'react';
 
@@ -51,3 +51,4 @@ function App() {
 }
 
 export default App;
+

@@ -4,6 +4,8 @@ import Footer from '../Footer/Footer';
 
 import { FaStar } from "react-icons/fa6";
 
+import './review.scss';
+
 
 export default function Review() {
 
@@ -48,21 +50,20 @@ export default function Review() {
 
                     <br />
 
-                    {[...Array(6)].map((star, i) => {
+                    {[...Array(5)].map((star, i) => {
                         const ratingValue = i + 1;
 
                         return (
-                            <label>
+                            <label key={i}>
                                 <input
                                     type='radio'
                                     name='rating'
-                                    value={rating}
-                                    onClick={() => setRating(ratingValue)}
+                                    value={ratingValue}
+                                    onChange={() => setRating(ratingValue)}
                                 />
                                 <FaStar
-
                                     className='star'
-                                    color={ratingValue < rating ? '#1db954' : '#fff'}
+                                    color={ratingValue <= (hover || rating) ? '#1db954' : '#dedede'}
                                     onMouseEnter={() => setHover(ratingValue)}
                                     onMouseLeave={() => setHover(null)}
                                 />

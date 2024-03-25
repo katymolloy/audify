@@ -1,12 +1,22 @@
+@import './../../styles/variables.scss';
+
 .review-component {
 
-    .rating-section {
+    margin: 2rem;
+
+    div.rating-section {
         input[type = 'radio'] {
             display: none;
         }
 
         .star {
             cursor: pointer;
+        }
+
+        svg {
+            &:hover {
+                color: $green-color-hover;
+            }
         }
     }
 
@@ -20,8 +30,8 @@
         button {
             background-color: $green-color;
             color: $black-color;
-            border-color: $green-color;
             border-radius: 3rem;
+            border: none;
             padding: 0.5rem 2rem;
             width: 100%;
             max-width: 10rem;

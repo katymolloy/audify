@@ -1,0 +1,17 @@
+@import './../../styles/variables.scss';
+
+div.main {
+
+    margin-right: $screen-margin-right;
+    margin-left: $screen-margin-left;
+
+    h2 {
+        margin: 1rem 0;
+        border-bottom: 3px solid black;
+    }
+
+    svg {
+        color: $green-color;
+    }
+
+}

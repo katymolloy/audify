@@ -4,7 +4,7 @@ import { auth } from "../../database/firebase";
 import "./register.scss";
 import { db } from "../../database/firebase";
 
-import { redirectUri, clientId } from "../../database/spotify";
+import { redirectUri, clientId } from "../../util/spotify";
 import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 

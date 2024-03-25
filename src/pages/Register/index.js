@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../database/firebase";
 import "./register.scss";
-import { db } from "../../firebase";
+import { db } from "../../database/firebase";
 
 import { redirectUri, clientId } from "../../util/spotify";
 import { doc, setDoc, getDocs, collection } from "firebase/firestore";
@@ -29,7 +29,7 @@ export default function RegisterPage() {
       querySnapshot.forEach((doc) => {
         unavailableUsernames.push(doc.id);
       });
-      console.log('Existing Users: ', unavailableUsernames);
+      // console.log('Existing Users: ', unavailableUsernames);
       setUnavailUsers(unavailableUsernames);
       return unavailableUsernames;
     };
@@ -42,15 +42,19 @@ export default function RegisterPage() {
       await setDoc(doc(db, "users", userId), {
         uid: userId,
         username: username,
+        password: password,
+        email: email,
         display: displayName,
         pfp: profilePic,
       });
 
       await setDoc(doc(db, "usernames", username), {
         username: username,
+        password: password,
+        email: email,
         uid: userId,
       });
-      console.log("Data added successfully");
+      // console.log("Data added successfully");
 
       navigate("/home");
     } catch (error) {

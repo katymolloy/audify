@@ -16,11 +16,11 @@ const ImageUpload = ({ currentUser }) => {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleImageChange} id='uploadBtn'/>
-      <label for ="uploadBtn"><BsPersonCircle /> Upload Img</label>
+    <div className='imageUpload'>
+      <input type="file" onChange={handleImageChange} id='uploadBtn' />
+      <label for="uploadBtn"><BsPersonCircle /> Upload Img</label>
       {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '300px', height: 'auto' }} />}
-    
+
     </div>
   );
 };

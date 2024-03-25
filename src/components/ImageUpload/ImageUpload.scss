@@ -1,29 +1,33 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-}
+.imageUpload {
 
-input[type="file"]{
-    display: none;
-}
 
-label{
-    display: inline-block;
-    text-transform: uppercase;
-    color: black;
-    background: #1DB954;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    padding: 15px 40px;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    user-select: none;
-    box-shadow: 5px 25px 25px black;
-    border-radius: 3px;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+    }
 
-label:active{
-    transform: scale(.9);
+    input[type="file"] {
+        display: none;
+    }
+
+    label {
+        display: inline-block;
+        text-transform: uppercase;
+        color: black;
+        background: #1DB954;
+        font-family: 'Poppins', sans-serif;
+        text-align: center;
+        padding: 15px 40px;
+        font-size: 18px;
+        letter-spacing: 1.5px;
+        user-select: none;
+        box-shadow: 5px 25px 25px black;
+        border-radius: 3px;
+    }
+
+    label:active {
+        transform: scale(.9);
+    }
 }

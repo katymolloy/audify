@@ -9,6 +9,13 @@ import { Link } from 'react-router-dom';
 
 import "./header-styles.scss";
 
+/**
+ * Represents the header component.
+ * @param {Object} props - The properties passed to the component.
+ * @param {Function} props.onLogout - Function to handle user logout.
+ * @param {string} props.username - The username of the current user.
+ * @returns {JSX.Element} Header component.
+ */
 export default function Header({ onLogout, username }) {
 
   const search = () => {

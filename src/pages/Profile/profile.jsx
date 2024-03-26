@@ -7,7 +7,10 @@ import spotify from "../../util/spotify";
 
 import './profile.scss';
 
-
+/**
+ * Renders the profile page component.
+ * @returns {JSX.Element} Profile page component.
+ */
 export default function ProfilePage() {
 
     // Back-end code here...

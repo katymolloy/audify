@@ -2,6 +2,12 @@ import { Link } from "react-router-dom"
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
 import './notfound.scss';
+
+/**
+ * @function NotFound
+ * @description This component is rendered when a user tries to access a page that doesn't exist.
+ * @returns {JSX.Element} The not found component
+ */
 export default function NotFound() {
     return (
         <>

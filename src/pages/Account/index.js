@@ -9,7 +9,10 @@ import ImageUpload from '../../components/ImageUpload/ImageUpload';
 
 import "./account.scss";
 
-
+/**
+ * Renders the Account page
+ * @returns {JSX.Element} Account page component.
+ */
 export default function AccountPage() {
 
     const currentUser = {};

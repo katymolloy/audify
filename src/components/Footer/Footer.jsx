@@ -4,6 +4,10 @@ import { FaSpotify } from "react-icons/fa";
 
 import "./footer-styles.scss";
 
+/**
+ * Renders the footer component.
+ * @returns The footer component
+ */
 export default function Footer() {
   return (
     <footer className="footer-main">

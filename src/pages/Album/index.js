@@ -8,7 +8,11 @@ import { FaSpotify } from "react-icons/fa";
 
 import './album.scss';
 
-
+/**
+ * Renders the Album page.
+ * 
+ * @returns {JSX.Element} Album page component.
+ */
 export default function AlbumPage() {
     const params = useParams();
 

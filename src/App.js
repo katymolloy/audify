@@ -52,7 +52,7 @@ function App() {
           element={<HomePage currentUser={userId} userDisplay={displayName} username={username} />}
         />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="/album" element={<AlbumPage />} />
+        <Route path="/album/:albumId" element={<AlbumPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/review" element={<ReviewPage />} />
         <Route path="*" element={<NotFound />} />

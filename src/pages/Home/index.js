@@ -62,27 +62,22 @@ export default function HomePage({ userDisplay, username }) {
         <div className="albums">
           {/* Map through the albums array and display each album */}
           {albums.map((album) => (
-            <div key={album.id} className="album">
-              <img src={album.cover} alt={album.name} />
-              <Link to={`albums/${album.name}`}>
-                <h3>{album.name}</h3>
-              </Link>
+            <Link className="album" to={`/album/${album.id}`}>
+              <img loading="lazy" src={album.cover} alt={album.name} />
+              <h3>{album.name}</h3>
               <p>{album.artist}</p>
-            </div>
+            </Link>
           ))}
         </div>
         <h2>Saved Albums</h2>
-        <div className="albums">
-          {" "}
-          {/* Add a div for saved albums */}
+        <div className="albums"> {/* Add a div for saved albums */}
           {savedAlbums.map((album) => (
-            <div key={album.id} className="album">
+            <Link className="album" to={`/album/${album.id}`}>
               <img src={album.cover} alt={album.name} />
-              <Link to={`albums/${album.name}`}>
-                <h3>{album.name}</h3>
-              </Link>
+              <h3>{album.name}</h3>
+
               <p>{album.artist}</p>
-            </div>
+            </Link>
           ))}
         </div>
         <h2>Latest Reviews</h2>

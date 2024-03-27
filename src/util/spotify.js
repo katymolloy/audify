@@ -1,6 +1,9 @@
+import { json } from "react-router-dom";
+
 const clientId = "f2ad0261134a43ffb4338718bc196907"; // Our spotify API ID
 const redirectUri = "http://localhost:3000/home"; // must whitelist the redirects through the Spotify Developer Dashboard
 let accessToken = "";
+let selectedAlbumId = ""; // Variable to store the selected album ID
 // search documentation found here: https://developer.spotify.com/documentation/web-api/reference/search
 // Will have to create a search bar in order to test this, however using the documentation this should be correct without testing
 const Spotify = {
@@ -28,7 +31,24 @@ const Spotify = {
             window.location = accessUrl;
         }
     },
+    getAlbumInfo(selectedAlbumId) {
+        const token = Spotify.getAccessToken();
 
+        return fetch(`https://api.spotify.com/v1/albums/${selectedAlbumId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                console.log(`Fetching: ${jsonResponse.name}`);
+                if (!jsonResponse) {
+                    return null;
+                }
+
+                return jsonResponse; // Return jsonResponse
+            });
+    },
     // This will take a search string and fetch albums from that name
     home() {
         // Get access token
@@ -42,8 +62,6 @@ const Spotify = {
         })
             .then(response => response.json())
             .then(jsonResponse => {
-                console.log("New Albums:");
-                console.log(jsonResponse);
                 if (!jsonResponse.albums) {
                     return [];
                 }
@@ -62,8 +80,6 @@ const Spotify = {
         })
             .then(response => response.json())
             .then(jsonResponse => {
-                console.log("User Albums:");
-                console.log(jsonResponse);
                 if (!jsonResponse.items) {
                     return [];
                 }

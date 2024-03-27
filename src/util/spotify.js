@@ -41,7 +41,6 @@ const Spotify = {
         })
             .then(response => response.json())
             .then(jsonResponse => {
-                console.log(`Fetching: ${jsonResponse.name}`);
                 if (!jsonResponse) {
                     return null;
                 }
@@ -57,6 +56,7 @@ const Spotify = {
                         duration: track.duration_ms,
                     })),
                 }
+                console.log(jsonResponse);
 
                 return jsonResponse; // Return jsonResponse
             });

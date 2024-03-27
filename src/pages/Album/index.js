@@ -58,15 +58,32 @@ export default function AlbumPage() {
                                 <p>{album.artists[0].name}</p>
                                 <p>{releaseMonthYear}</p>
                             </span>
-                            <ul>
+                            <ul className='tracks'>
                                 {album.tracks?.items.map(track => (
                                     <li key={track.id}>
-                                        <strong>{track.name}</strong> - {msToTime(track.duration_ms)}
+                                        <div className='trackNumber'>{track.track_number}</div>
+                                        <div className='titleArtists'>
+                                            <p>{track.name}</p>
+                                            <div className='artists'>
+                                                <div className='explicit'>
+                                                    {track.explicit ? 'E' : ''}
+                                                </div>
+                                                {track.artists.map((artist, index) => (
+                                                    <div key={artist.id} className={index !== 0 ? 'name space' : 'name'}>
+                                                        {artist.name}{index !== track.artists.length - 1 ? ', ' : ''}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className='time'>
+                                            {msToTime(track.duration_ms)}
+                                        </div>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     </div>
+
                 )}
                 <h2>WRITE A REVIEW</h2>
                 <Review />

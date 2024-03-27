@@ -43,16 +43,18 @@ export default function AlbumPage() {
             <div className='main'>
                 <div className='album-section'>
                     <div className='img'>
+                        <img loading="lazy" src={album.images[0].url}></img>
                         <a href={album.external_urls?.spotify} target='_blank'>
+                            Open In Spotify
                             <FaSpotify />
                         </a>
                     </div>
                     <div className='info'>
                         <span>
                             <h1>{album.name}</h1>
+                            <p>{album.artists[0].name}</p>
                             <p>{releaseMonthYear}</p>
                         </span>
-                        <h2>Tracks</h2>
                         <ul>
                             {album.tracks?.items.map(track => (
                                 <li key={track.id}>

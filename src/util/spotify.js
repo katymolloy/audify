@@ -46,6 +46,18 @@ const Spotify = {
                     return null;
                 }
 
+
+                const albumInfo = {
+                    cover: jsonResponse.images[0].url,
+                    url: jsonResponse.external_urls.spotify,
+                    title: jsonResponse.name,
+                    artist: jsonResponse.artists[0].name,
+                    tracks: jsonResponse.tracks.items.map(track => ({
+                        name: track.name,
+                        duration: track.duration_ms,
+                    })),
+                }
+
                 return jsonResponse; // Return jsonResponse
             });
     },

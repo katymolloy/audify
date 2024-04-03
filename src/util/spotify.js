@@ -112,6 +112,30 @@ const Spotify = {
                 };
             });
     },
+    //https://developer.spotify.com/documentation/web-api/reference/search search query, limit 50, offset 0.
+    search(query) {
+        // Get access token
+        const token = Spotify.getAccessToken();
+
+        // Fetch new releases
+        const fetchSeachTerm = fetch(`https://api.spotify.com/v1/search?q=${query}&type=album&limit=50`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (!jsonResponse.albums) {
+                    return [];
+                }
+                return jsonResponse.albums.items.map(newAlbum => ({
+                    id: newAlbum.id,
+                    name: newAlbum.name,
+                    artist: newAlbum.artists[0].name,
+                    cover: newAlbum.images[0].url,
+                }));
+            });
+    }
 };
 export { clientId, redirectUri }
 

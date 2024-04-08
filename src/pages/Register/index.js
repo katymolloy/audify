@@ -214,16 +214,14 @@ export default function RegisterPage() {
           <div>
             <input
               placeholder="Password"
-              // type="password"
-              type="text"
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
           <div>
             <input
               placeholder="Confirm Password"
-              // type="password"
-              type="text"
+              type="password"
               onChange={(e) => setPasswordConfirm(e.target.value)}
             ></input>
           </div>

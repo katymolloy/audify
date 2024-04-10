@@ -7,7 +7,6 @@ import HomePage from './pages/Home';
 import AccountPage from './pages/Account';
 import AlbumPage from './pages/Album';
 import AboutPage from './pages/About';
-import ReviewPage from './pages/LeaveReview';
 import NotFound from './pages/NotFound';
 
 
@@ -54,7 +53,6 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/album/:albumId" element={<AlbumPage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/review" element={<ReviewPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

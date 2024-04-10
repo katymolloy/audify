@@ -91,7 +91,7 @@ export default function HomePage() {
             <div key={index} className="reviewCard">
               <img src={review.albumImg}></img>
               <div className="reviewInfo">
-                <h3>{review.album}</h3>
+                <Link to={`/album/${review.albumId}`}><h3>{review.album}</h3></Link>
                 <p>{review.review}</p>
                 <p>{review.rating} Stars</p>
               </div>

@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import spotify from "../../util/spotify";
 import { getUserData, auth, getReviews } from "../../database/firebase";
+import AlbumCard from "../../components/AlbumCard/index";
 import "./home.scss";
 
 /**
@@ -67,22 +68,13 @@ export default function HomePage() {
         <div className="albums">
           {/* Map through the albums array and display each album */}
           {albums.map((album, index) => (
-            <Link className="album" to={`/album/${album.id}`} key={index}>
-              <img loading="lazy" src={album.cover} alt={album.name} />
-              <h3>{album.name}</h3>
-              <p>{album.artist}</p>
-            </Link>
+            <AlbumCard key={index} album={album} />
           ))}
         </div>
         <h2>Saved Albums</h2>
         <div className="albums"> {/* Add a div for saved albums */}
           {savedAlbums.map((album, index) => (
-            <Link className="album" to={`/album/${album.id}`} key={index}>
-              <img src={album.cover} alt={album.name} />
-              <h3>{album.name}</h3>
-
-              <p>{album.artist}</p>
-            </Link>
+            <AlbumCard key={index} album={album} />
           ))}
         </div>
         <h2>Latest Reviews</h2>

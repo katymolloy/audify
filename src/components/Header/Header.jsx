@@ -39,19 +39,20 @@ export default function Header({  username }) {
           <p>udify</p>
         </a>
 
-        <a
+        {/* <a
           className="user-section"
           onClick={() => setOpenMenu((prev) => !prev)}
         >
           <BsPersonCircle />
           <IoIosArrowDown className="arrow-down" />
-        </a>
-
-        {/* <a className="user-section" href="/account" onClick = {() => setOpenMenu(true)}>
-          <BsPersonCircle />
-          {username} <IoIosArrowDown className="arrow-down" />
-
         </a> */}
+
+      <Link to={'/account'}>
+          <BsPersonCircle />
+          {username}
+           {/* <IoIosArrowDown className="arrow-down" /> */}
+
+          </Link>
 
         {openMenu && (
           <div className="flex flex-col dropDownMenu">

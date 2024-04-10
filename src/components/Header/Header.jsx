@@ -16,13 +16,20 @@ import "./header-styles.scss";
  * @param {string} props.username - The username of the current user.
  * @returns {JSX.Element} Header component.
  */
-export default function Header({  username }) {
+export default function Header({ username }) {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
-  
-  
-  const search = () => {
-    console.log("here");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const search = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    if (searchQuery.trim() !== "") {
+      navigate(`/search/${searchQuery}`); // Navigate to search route with query
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value); // Update search query state as user types
   };
 
 
@@ -47,12 +54,12 @@ export default function Header({  username }) {
           <IoIosArrowDown className="arrow-down" />
         </a> */}
 
-      <Link to={'/account'}>
+        <Link to={'/account'}>
           <BsPersonCircle />
           {username}
-           {/* <IoIosArrowDown className="arrow-down" /> */}
+          {/* <IoIosArrowDown className="arrow-down" /> */}
 
-          </Link>
+        </Link>
 
         {openMenu && (
           <div className="flex flex-col dropDownMenu">
@@ -68,17 +75,16 @@ export default function Header({  username }) {
           Log Out
         </button>
 
-        <form action="" className="search-bar">
+        <form onSubmit={search} className="search-bar">
           <input
             type="text"
             placeholder="Search . . ."
             maxLength="100"
-            onSubmit={search}
+            value={searchQuery}
+            onChange={handleInputChange} // Update search query as user types
           />
           <button type="submit">
-            <Link to="/album">
-              <IoSearchOutline />
-            </Link>
+            <IoSearchOutline />
           </button>
         </form>
 

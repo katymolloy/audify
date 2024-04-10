@@ -32,9 +32,15 @@ export default function AccountPage() {
 
     useEffect(() => {
         setDisplayName(userInfo.display);
-        setReviews(userInfo.reviews)
-        setUsername(userInfo.username)
 
+        setUsername(userInfo.username)
+        let userReviews = []
+        if (userInfo.reviews) {
+            for (let i = 0; i < userInfo.reviews.length; i++) {
+                userReviews.push(userInfo.reviews[i])
+            }
+        }
+        setReviews(userReviews)
     }, [userInfo]);
 
 

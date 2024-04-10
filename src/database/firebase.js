@@ -43,42 +43,70 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
   let currentUsername = ''
 
 
-
-
-
   const docRef = doc(db, 'users', current.uid);
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
-    currentUsername = docSnap.data().username;
-
-    let userData = docSnap.data();
-    if (!userData.reviews) {
-      userData.reviews = [];
-    }
-
-    let reviews = userData.reviews;
-    if (reviews.length > 0) {
-      reviews.forEach((review) => {
-        if (review.albumId !== albumId) {
+    let oldReviews = docSnap.data().reviews;
+    if (oldReviews.length > 0) {
+      oldReviews.forEach((oldReview) => {
+        if (oldReview.albumId !== albumId) {
           setDoc(docRef, {
             reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
           }, { merge: true })
           console.log('Review saved')
-
+          return;
         } else {
-          console.log('Album already reviewed')
-
+          console.log('Review already saved')
+          return;
         }
       })
     } else {
       setDoc(docRef, {
         reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
       }, { merge: true })
+      return;
     }
   } else {
-    console.log('Error finding user data')
-
+    console.log('Error retrieving user reviews from database')
+    return;
   }
+
+
+
+
+  // const docRef = doc(db, 'users', current.uid);
+  // const docSnap = await getDoc(docRef)
+  // if (docSnap.exists()) {
+  //   currentUsername = docSnap.data().username;
+
+  //   let userData = docSnap.data();
+  //   if (!userData.reviews) {
+  //     userData.reviews = [];
+  //   }
+
+  //   let reviews = userData.reviews;
+  //   if (reviews.length > 0) {
+  //     reviews.forEach((review) => {
+  //       if (review.albumId !== albumId) {
+  //         setDoc(docRef, {
+  //           reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
+  //         }, { merge: true })
+  //         console.log('Review saved')
+
+  //       } else {
+  //         console.log('Album already reviewed')
+
+  //       }
+  //     })
+  //   } else {
+  //     setDoc(docRef, {
+  //       reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
+  //     }, { merge: true })
+  //   }
+  // } else {
+  //   console.log('Error finding user data')
+
+  // }
 
   await setDoc(doc(db, 'reviews', albumId), {
     reviews: arrayUnion({
@@ -170,7 +198,11 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
       email: email,
       display: displayName,
       reviews: [],
-    });
+    }).then(() => {
+      console.log('New user added to db')
+    }).catch((error) => {
+      console.log('Error writing user to database: ', error)
+    })
 
     await setDoc(doc(db, "usernames", username), {
       username: username,
@@ -194,14 +226,28 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
  * @function registerUser
  * @returns {Promise} A Promise that resolves once the user is successfully registered and written to the database.
  */
-export const registerUser = async (email, password) => {
-  await createUserWithEmailAndPassword(auth, email, password).then(
-    (userCredential) => {
-      return userCredential.user;
-    }
-  );
+export const registerUser = async (email, password, display, username) => {
 
-};
+
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user.uid;
+      writeUserToDb(user, username, email, display);
+
+    })
+    .catch((error) => {
+
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('User already exists')
+      }
+      if (error.code === 'auth/weak-password') {
+        console.log('Password is too weak, please try again')
+      }
+
+    })
+}
+
 
 
 

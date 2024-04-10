@@ -34,10 +34,10 @@ export default function Header({  username }) {
   return (
     <>
       <header className="main">
-        <a className="audify-logo" href="/home">
+        <Link to={'/home'} className="audify-logo" >
           <img src="/images/AudifyLogo.png" alt="Audify Logo"></img>
           <p>udify</p>
-        </a>
+        </Link>
 
         {/* <a
           className="user-section"

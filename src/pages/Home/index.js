@@ -88,7 +88,7 @@ export default function HomePage() {
         <h2>Latest Reviews</h2>
         {reviews.map((review, index) => (
           <div key={index}>
-            <h2>{review.album}</h2>
+          <Link to={`/album/${review.albumId}`}><h2>{review.album}</h2></Link>  
             <p>{review.review}</p>
           </div>
         ))}

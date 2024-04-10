@@ -39,6 +39,14 @@ export default app;
  */
 export const writeReviewToDb = async (albumId, albumName, review, rating) => {
   let current = auth.currentUser;
+  let currentUsername = ''
+  const docRef2 = doc(db, 'users', current.uid)
+  const docSnap2 = await getDoc(docRef2);
+  if (docSnap2.exists()) {
+    currentUsername = docSnap2.data().username;
+  }
+
+
 
   await setDoc(doc(db, 'reviews', albumId), {
     reviews: arrayUnion({
@@ -46,7 +54,8 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
       albumId: albumId,
       review: review,
       rating: rating,
-      author: current.uid
+      author: currentUsername,
+      authorId: current.uid
     })
   }, { merge: true })
 
@@ -59,7 +68,7 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
       reviews.forEach((review) => {
         if (review.albumId !== albumId) {
           setDoc(docRef, {
-            reviews: arrayUnion({ review: review, rating: rating, albumId: albumId })
+            reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, author: currentUsername, })
           }, { merge: true })
           console.log('Review saved')
 
@@ -70,7 +79,7 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
       })
     } else {
       setDoc(docRef, {
-        reviews: arrayUnion({ review: review, rating: rating, albumId: albumId })
+        reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, author: currentUsername, })
       }, { merge: true })
     }
   } else {

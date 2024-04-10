@@ -86,12 +86,18 @@ export default function HomePage() {
           ))}
         </div>
         <h2>Latest Reviews</h2>
-        {reviews.map((review, index) => (
-          <div key={index}>
-            <h2>{review.album}</h2>
-            <p>{review.review}</p>
-          </div>
-        ))}
+        <div className="reviewsContainer">
+          {reviews.map((review, index) => (
+            <div key={index} className="reviewCard">
+              <img src={review.albumImg}></img>
+              <div className="reviewInfo">
+                <h3>{review.album}</h3>
+                <p>{review.review}</p>
+                <p>{review.rating} Stars</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <Footer />

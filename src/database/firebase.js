@@ -33,17 +33,19 @@ export default app;
 /**
  * saves review to database in user field as well as review collection
  * @param {string} albumId 
- * @param {string} albumName 
+ * @param {string} albumName
+ * @param {string} albumImg 
  * @param {string} review 
  * @param {string} rating 
  */
-export const writeReviewToDb = async (albumId, albumName, review, rating) => {
+export const writeReviewToDb = async (albumId, albumImg, albumName, review, rating) => {
   let current = auth.currentUser;
 
   await setDoc(doc(db, 'reviews', albumId), {
     reviews: arrayUnion({
       album: albumName,
       albumId: albumId,
+      albumImg: albumImg,
       review: review,
       rating: rating,
       author: current.uid
@@ -59,7 +61,7 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
       reviews.forEach((review) => {
         if (review.albumId !== albumId) {
           setDoc(docRef, {
-            reviews: arrayUnion({ review: review, rating: rating, albumId: albumId })
+            reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, albumImg: albumImg })
           }, { merge: true })
           console.log('Review saved')
 
@@ -70,7 +72,7 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
       })
     } else {
       setDoc(docRef, {
-        reviews: arrayUnion({ review: review, rating: rating, albumId: albumId })
+        reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, albumImg: albumImg })
       }, { merge: true })
     }
   } else {

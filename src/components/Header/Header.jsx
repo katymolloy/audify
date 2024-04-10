@@ -4,7 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { BsPersonCircle } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 import { useState } from "react";
-
+import { logOutUser } from "../../database/firebase";
 import { Link } from "react-router-dom";
 
 import "./header-styles.scss";
@@ -16,7 +16,7 @@ import "./header-styles.scss";
  * @param {string} props.username - The username of the current user.
  * @returns {JSX.Element} Header component.
  */
-export default function Header({ onLogout, username }) {
+export default function Header({  username }) {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   
@@ -27,7 +27,7 @@ export default function Header({ onLogout, username }) {
 
 
   const logoutHandler = () => {
-    onLogout();
+    logOutUser();
     navigate("/");
   };
 
@@ -59,7 +59,7 @@ export default function Header({ onLogout, username }) {
               <li onClick={username} className="user-name-list">
                 user_name
               </li>
-              <li onClick={onLogout}>Log Out</li>
+              {/* <li onClick={onLogout}>Log Out</li> */}
             </ul>
           </div>
         )}

@@ -23,7 +23,6 @@ const firebaseConfig = {
 };
 
 
-
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
@@ -44,6 +43,7 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
   await setDoc(doc(db, 'reviews', albumId), {
     reviews: arrayUnion({
       album: albumName,
+      albumId: albumId,
       review: review,
       rating: rating,
       author: current.uid
@@ -70,7 +70,7 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
       })
     } else {
       setDoc(docRef, {
-        reivews: arrayUnion({ review: review, rating: rating, albumId: albumId })
+        reviews: arrayUnion({ review: review, rating: rating, albumId: albumId })
       }, { merge: true })
 
     }
@@ -81,17 +81,6 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
 }
 
 
-
-export const logOutUser = () => {
-  const auth = getAuth();
-  signOut(auth)
-    .then(() => {
-      console.log("logged out");
-    })
-    .catch((error) => {
-      console.log("Error signing out " + error);
-    });
-};
 
 
 export const getUserData = async (current, setUserInfo) => {
@@ -125,7 +114,6 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
       username: username,
       email: email,
       display: displayName,
-      reviews: []
     });
 
     await setDoc(doc(db, "usernames", username), {
@@ -151,11 +139,23 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
  * @returns {Promise} A Promise that resolves once the user is successfully registered and written to the database.
  */
 export const registerUser = async (email, password) => {
-
     await createUserWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         return userCredential.user;
       }
     );
   
+};
+
+
+
+export const logOutUser = () => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      console.log("logged out");
+    })
+    .catch((error) => {
+      console.log("Error signing out " + error);
+    });
 };

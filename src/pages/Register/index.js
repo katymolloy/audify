@@ -9,10 +9,7 @@ import { doc, setDoc, getDocs, collection } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 
-/**
- * This function is the main component of the register page. It contains the form for registering a new user, as well as the logic for registering the user and writing their information to the database.
- * @returns {JSX.Element} The RegisterPage component.
- */
+
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

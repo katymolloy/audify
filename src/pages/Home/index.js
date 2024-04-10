@@ -52,7 +52,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Header onLogout={logOutUser}></Header>
+      <Header ></Header>
 
       <div className="homeContainer">
         <h1>

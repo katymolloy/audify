@@ -20,6 +20,7 @@ export default function AccountPage() {
     const [displayName, setDisplayName] = useState('')
     const [reviews, setReviews] = useState([])
     const [username, setUsername] = useState('')
+    const [numOfReviews, setNumOfReviews] = useState(0)
 
     useEffect(() => {
         const current = auth.currentUser;
@@ -33,8 +34,14 @@ export default function AccountPage() {
         setDisplayName(userInfo.display);
         setReviews(userInfo.reviews)
         setUsername(userInfo.username)
-        console.log(userInfo)
+
     }, [userInfo]);
+
+
+    useEffect(() => {
+        setNumOfReviews(reviews.length)
+        console.log(reviews)
+    }, [reviews])
 
     return (
         <>
@@ -43,18 +50,18 @@ export default function AccountPage() {
             <div className='container accountContainer'>
                 <h1>Hi there, {displayName}</h1>
                 <h2>@{username}</h2>
-                <h2>Account Info</h2>
-                <div className="accountInfo">
-                    <p>Creation Date: 12-34-56</p><br />
-                    <p># of Posts: 123456</p><br />
-                    <p><MdThumbUp />Rep: +1337</p><br /> {/*# of upvotes*/}
-                </div>
+                <p>{numOfReviews} reviews</p>
+                {/* <div className="accountInfo">
+               
+                    <p><MdThumbUp />Rep: +1337</p>
+                </div> */}
                 <h2>Reviews</h2>
                 {reviews ?
                     <div>
-                        {reviews.map((review, index) => (
-                            <div key={index} className="reviewCard">
+                        {reviews.map((review) => (
+                            <div className="reviewCard">
                                 <img src={review.albumImg}></img>
+                                <div>{review.date}</div><div>{review.time}</div>
                                 <div className="reviewInfo">
                                     <Link to={`/album/${review.albumId}`}><h3>{review.album}</h3></Link>
                                     <p>{review.review}</p>

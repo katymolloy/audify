@@ -16,7 +16,21 @@ export default function Review({ albumId, albumName, albumImg }) {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
-    writeReviewToDb(albumId, albumImg, albumName, reviewMessage, rating);
+    const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+    const d = new Date
+    const dateTimestamp = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
+    let hour = d.getHours();
+    let amOrPm = ''
+    if (hour > 12) {
+      hour = hour - 12
+      amOrPm = 'pm'
+    } else {
+      hour = hour
+      amOrPm = 'am'
+    }
+    const timestamp = `${hour}:${d.getMinutes()}${amOrPm}`
+
+    writeReviewToDb(albumId, albumImg, albumName, reviewMessage, rating, dateTimestamp, timestamp);
   };
 
   return (

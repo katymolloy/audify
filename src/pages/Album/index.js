@@ -4,7 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import Review from '../../components/Review';
 import { FaSpotify } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { getUserData, auth, getReviewById } from "../../database/firebase";
+import { getUserData, auth,  } from "../../database/firebase";
 import spotify from "../../util/spotify";
 
 import './album.scss';
@@ -19,14 +19,14 @@ export default function AlbumPage() {
     //const 
 
 
-    useEffect(() => {
-        getReviewById(setReviews, albumId);
-        // const current = auth.currentUser;
-        // console.log(current)
-        // if (current) {
-        //   getUserData(current, setUserInfo)
-        // }
-    }, [])
+    // useEffect(() => {
+    //     getReviewById(setReviews, albumId);
+    //     // const current = auth.currentUser;
+    //     // console.log(current)
+    //     // if (current) {
+    //     //   getUserData(current, setUserInfo)
+    //     // }
+    // }, [])
 
 
     useEffect(() => {

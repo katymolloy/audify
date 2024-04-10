@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs} from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
@@ -38,26 +38,30 @@ export default app;
  * @param {string} review 
  * @param {string} rating 
  */
-export const writeReviewToDb = async (albumId, albumImg, albumName, review, rating) => {
+export const writeReviewToDb = async (albumId, albumImg, albumName, review, rating, date, timestamp) => {
   let current = auth.currentUser;
   let currentUsername = ''
+
+
+
+
 
   const docRef = doc(db, 'users', current.uid);
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
     currentUsername = docSnap.data().username;
-    
+
     let userData = docSnap.data();
     if (!userData.reviews) {
       userData.reviews = [];
     }
-    
+
     let reviews = userData.reviews;
     if (reviews.length > 0) {
       reviews.forEach((review) => {
         if (review.albumId !== albumId) {
           setDoc(docRef, {
-            reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, albumImg: albumImg, author: currentUsername })
+            reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
           }, { merge: true })
           console.log('Review saved')
 
@@ -68,14 +72,14 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
       })
     } else {
       setDoc(docRef, {
-        reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, albumImg: albumImg, author: currentUsername })
+        reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
       }, { merge: true })
     }
   } else {
     console.log('Error finding user data')
 
   }
-  
+
   await setDoc(doc(db, 'reviews', albumId), {
     reviews: arrayUnion({
       album: albumName,
@@ -87,16 +91,16 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
       authorId: current.uid
     })
   }, { merge: true })
-  
-  
-  }
+
+
+}
 
 
 
 
 
 
-   
+
 
 
 
@@ -115,22 +119,22 @@ export const getReviews = async (setReviews) => {
 
 
 
-export const getReviewById = async (setReviews, id) => {
+// export const getReviewById = async (setReviews, id) => {
 
-  const querySnapshot = await getDocs(doc (db, "reviews", id));
-  const docRef = doc(db, "reviews", id);
-  const docSnap = await getDoc(querySnapshot);
+//   const querySnapshot = await getDocs(doc (db, "reviews", id));
+//   const docRef = doc(db, "reviews", id);
+//   const docSnap = await getDoc(querySnapshot);
 
-  let returnReviews = [];
-  querySnapshot.forEach((doc) => {
-    let userReviews = doc.data().reviews
-    for (let i  = 0; i < userReviews.length; i++) {
-      returnReviews.push(userReviews[i]);
-    }
-  });
+//   let returnReviews = [];
+//   querySnapshot.forEach((doc) => {
+//     let userReviews = doc.data().reviews
+//     for (let i  = 0; i < userReviews.length; i++) {
+//       returnReviews.push(userReviews[i]);
+//     }
+//   });
 
-  setReviews(returnReviews);
-}
+//   setReviews(returnReviews);
+// }
 
 
 

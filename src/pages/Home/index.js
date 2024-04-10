@@ -32,6 +32,7 @@ export default function HomePage() {
 
 
   useEffect(() => {
+
     setDisplay(userInfo.display);
   }, [userInfo]);
 

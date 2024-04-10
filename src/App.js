@@ -52,7 +52,7 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/album/:albumId" element={<AlbumPage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/search/:search" element={<SearchPage />} />
+        <Route path="/search/:query" element={<SearchPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

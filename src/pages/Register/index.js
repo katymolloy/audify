@@ -83,8 +83,7 @@ export default function RegisterPage() {
 
     // run when no data is invalid/missing
     if (validate.length === 0) {
-      let user = registerUser(email, password);
-      writeUserToDb(user, username, email, displayName);
+    registerUser(email, password, displayName, username)
       navigate('/home')
     }
   };

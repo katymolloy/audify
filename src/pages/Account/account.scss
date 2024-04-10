@@ -47,6 +47,11 @@
         background: #000000;
     }
 
+    .account-info{
+        display: flex;
+        flex-direction: column;
+    }
+
     .album {
         margin-right: 15px;
         display: flex;

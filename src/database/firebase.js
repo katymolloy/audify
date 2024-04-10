@@ -38,57 +38,70 @@ export default app;
  * @param {string} review 
  * @param {string} rating 
  */
-export const writeReviewToDb = async (albumId, albumImg, albumName, review, rating) => {
+export const writeReviewToDb = async (albumId, albumImg, albumName, review, rating, date, timestamp) => {
   let current = auth.currentUser;
   let currentUsername = ''
-  const docRef2 = doc(db, 'users', current.uid)
-  const docSnap2 = await getDoc(docRef2);
-  if (docSnap2.exists()) {
-    currentUsername = docSnap2.data().username;
-  }
-
-
-
-  await setDoc(doc(db, 'reviews', albumId), {
-    reviews: arrayUnion({
-      album: albumName,
-      albumId: albumId,
-      albumImg: albumImg,
-      review: review,
-      rating: rating,
-      author: currentUsername,
-      authorId: current.uid
-    })
-  }, { merge: true })
 
 
   const docRef = doc(db, 'users', current.uid);
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
-    let reviews = docSnap.data().reviews;
-    if (reviews.length > 0) {
-      reviews.forEach((review) => {
-        if (review.albumId !== albumId) {
+    currentUsername = docSnap.data().username
+    let oldReviews = docSnap.data().reviews;
+    if (oldReviews.length > 0) {
+      oldReviews.forEach((oldReview) => {
+        if (oldReview.albumId !== albumId) {
           setDoc(docRef, {
-            reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, albumImg: albumImg, author: currentUsername })
+            reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
           }, { merge: true })
           console.log('Review saved')
 
+          setDoc(doc(db, 'reviews', albumId), {
+            reviews: arrayUnion({
+              album: albumName,
+              albumId: albumId,
+              albumImg: albumImg,
+              review: review,
+              rating: rating,
+              author: currentUsername,
+              authorId: current.uid
+            })
+          }, { merge: true })
+          return;
         } else {
-          console.log('Album already reviewed')
-
+          console.log('Review already saved')
+          return;
         }
+
+
+
+
       })
     } else {
       setDoc(docRef, {
-        reviews: arrayUnion({ review: review, rating: rating, albumId: albumId, albumImg: albumImg, author: currentUsername })
+        reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
       }, { merge: true })
+      return;
     }
   } else {
-    console.log('Error finding user data')
-
+    console.log('Error retrieving user reviews from database')
+    return;
   }
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 export const getReviews = async (setReviews) => {
@@ -160,7 +173,8 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
       username: username,
       email: email,
       display: displayName,
-    });
+      reviews: [],
+    })
 
     await setDoc(doc(db, "usernames", username), {
       username: username,
@@ -184,14 +198,28 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
  * @function registerUser
  * @returns {Promise} A Promise that resolves once the user is successfully registered and written to the database.
  */
-export const registerUser = async (email, password) => {
-  await createUserWithEmailAndPassword(auth, email, password).then(
-    (userCredential) => {
-      return userCredential.user;
-    }
-  );
+export const registerUser = async (email, password, display, username) => {
 
-};
+
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user.uid;
+      writeUserToDb(user, username, email, display);
+
+    })
+    .catch((error) => {
+
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('User already exists')
+      }
+      if (error.code === 'auth/weak-password') {
+        console.log('Password is too weak, please try again')
+      }
+
+    })
+}
+
 
 
 

@@ -117,23 +117,32 @@ const Spotify = {
         // Get access token
         const token = Spotify.getAccessToken();
 
-        // Fetch new releases
-        const fetchSeachTerm = fetch(`https://api.spotify.com/v1/search?q=${query}&type=album&limit=50`, {
+        // Fetch albums based on the search query
+        return fetch(`https://api.spotify.com/v1/search?q=${query}&type=album&limit=50`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(jsonResponse => {
                 if (!jsonResponse.albums) {
                     return [];
                 }
-                return jsonResponse.albums.items.map(newAlbum => ({
-                    id: newAlbum.id,
-                    name: newAlbum.name,
-                    artist: newAlbum.artists[0].name,
-                    cover: newAlbum.images[0].url,
+                return jsonResponse.albums.items.map(album => ({
+                    id: album.id,
+                    name: album.name,
+                    artist: album.artists[0].name,
+                    cover: album.images[0].url,
                 }));
+            })
+            .catch(error => {
+                console.error('Error searching albums:', error);
+                return []; // Return empty array in case of error
             });
     }
 };

@@ -1,0 +1,17 @@
+.reviewCard {
+    display: flex;
+    margin: 5px;
+
+    img {
+        width: 150px;
+        height: 150px;
+        border-radius: 5px;
+    }
+
+    .reviewInfo {
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+}

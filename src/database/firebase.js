@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs, where, query } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
@@ -108,10 +108,10 @@ export const getReviews = async (setReviews) => {
 
 export const getReviewById = async (setReviews, id) => {
 
-  const reviewReference = collection(db, 'reviews');
-  const queryVariable = query(reviewReference, where('albumId', '==', id));
+  const querySnapshot = await getDocs(doc (db, "reviews", id));
+  const docRef = doc(db, "reviews", id);
+  const docSnap = await getDoc(querySnapshot);
 
-  const querySnapshot = await getDocs(queryVariable);
   let returnReviews = [];
   querySnapshot.forEach((doc) => {
     let userReviews = doc.data().reviews

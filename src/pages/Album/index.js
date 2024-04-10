@@ -86,9 +86,13 @@ export default function AlbumPage() {
                     </div>
 
                 )}
-                <h2>WRITE A REVIEW</h2>
-                <Review albumId={albumId} albumName= {album.name}/>
-                <h2>REVIEWS</h2>
+                {!loading && (
+                    <>
+                        <h2>WRITE A REVIEW</h2>
+                        <Review albumId={albumId} albumName={album.name} albumImg={album.images[0].url} />
+                        <h2>REVIEWS</h2>
+                    </>
+                )}
             </div>
             <Footer />
         </>

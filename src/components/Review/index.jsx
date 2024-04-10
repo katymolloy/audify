@@ -8,7 +8,7 @@ import "./review.scss";
  * Renders the review component.
  * @returns {JSX.Element} Review component.
  */
-export default function Review({ albumId, albumName }) {
+export default function Review({ albumId, albumName, albumImg }) {
   const [reviewMessage, setReviewMessage] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
@@ -16,7 +16,7 @@ export default function Review({ albumId, albumName }) {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
-    writeReviewToDb(albumId, albumName, reviewMessage, rating);
+    writeReviewToDb(albumId, albumImg, albumName, reviewMessage, rating);
   };
 
   return (

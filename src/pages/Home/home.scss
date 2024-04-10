@@ -84,4 +84,28 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #000000;
     }
+
+    .reviewsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px;
+    }
+
+    .reviewCard {
+        display: flex;
+        margin: 5px;
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 5px;
+        }
+
+        .reviewInfo {
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+    }
 }

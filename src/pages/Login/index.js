@@ -18,7 +18,7 @@ export default function LoginPage({ updateUser, updateUserData }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMsg, SetErrorMsg] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
 
   /**
    * Handles the login form submission.
@@ -37,7 +37,6 @@ export default function LoginPage({ updateUser, updateUserData }) {
   const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log("here");
         successfulLogin();
         updateUser(userCredential.user.uid);
         getUserData(userCredential.user.uid);
@@ -45,6 +44,23 @@ export default function LoginPage({ updateUser, updateUserData }) {
       .catch((err) => {
         const errorCode = err.code;
         console.log(errorCode);
+        // Set error message based on error code
+        switch (errorCode) {
+          case "auth/invalid-email":
+            setErrorMsg("Invalid email address.");
+            break;
+          case "auth/user-disabled":
+            setErrorMsg("User account has been disabled.");
+            break;
+          case "auth/user-not-found":
+            setErrorMsg("User not found.");
+            break;
+          case "auth/wrong-password":
+            setErrorMsg("Incorrect password.");
+            break;
+          default:
+            setErrorMsg("An error occurred. Please try again.");
+        }
       });
   };
 

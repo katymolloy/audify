@@ -26,7 +26,6 @@ export default function HomePage() {
   useEffect(() => {
     getReviews(setReviews);
     const current = auth.currentUser;
-    console.log(current)
     if (current) {
       getUserData(current, setUserInfo)
     }

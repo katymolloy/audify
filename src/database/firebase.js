@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc, arrayUnion } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
@@ -72,12 +72,24 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
       setDoc(docRef, {
         reviews: arrayUnion({ review: review, rating: rating, albumId: albumId })
       }, { merge: true })
-
     }
   } else {
     console.log('Error finding user data')
 
   }
+}
+
+export const getReviews = async (setReviews) => {
+  const querySnapshot = await getDocs(collection(db, "reviews"));
+  let returnReviews = [];
+  querySnapshot.forEach((doc) => {
+    let userReviews = doc.data().reviews
+    for (let i = 0; i < userReviews.length; i++) {
+      returnReviews.push(userReviews[i])
+    }
+  });
+
+  setReviews(returnReviews)
 }
 
 
@@ -139,12 +151,12 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
  * @returns {Promise} A Promise that resolves once the user is successfully registered and written to the database.
  */
 export const registerUser = async (email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
-        return userCredential.user;
-      }
-    );
-  
+  await createUserWithEmailAndPassword(auth, email, password).then(
+    (userCredential) => {
+      return userCredential.user;
+    }
+  );
+
 };
 
 

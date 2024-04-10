@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import { MdThumbUp } from "react-icons/md";
 import { getUserData, auth } from '../../database/firebase';
 import { Link } from "react-router-dom";
+import ReviewCard from "../../components/ReviewCard/index";
 // import { MdOutlineThumbUp } from "react-icons/md";
 // import { BsPersonCircle } from "react-icons/bs";
 // import ImageUpload from '../../components/ImageUpload/ImageUpload';
@@ -64,16 +65,8 @@ export default function AccountPage() {
                 <h2>Reviews</h2>
                 {reviews ?
                     <div>
-                        {reviews.map((review) => (
-                            <div className="reviewCard">
-                                <img src={review.albumImg}></img>
-                                <div>{review.date}</div><div>{review.time}</div>
-                                <div className="reviewInfo">
-                                    <Link to={`/album/${review.albumId}`}><h3>{review.album}</h3></Link>
-                                    <p>{review.review}</p>
-                                    <p>{review.rating} Stars</p>
-                                </div>
-                            </div>
+                        {reviews.map((review, index) => (
+                            <ReviewCard key={index} review={review} />
                         ))}
                     </div>
                     :

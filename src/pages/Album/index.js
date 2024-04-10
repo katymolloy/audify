@@ -108,8 +108,16 @@ export default function AlbumPage() {
                         <Review albumId={albumId} albumName={album.name} albumImg={album.images[0].url} />
                         <h2>REVIEWS</h2>
                         {reviews.map((review, index) => {
-                            <div key={index}>{review.review}</div>
-                            { console.log('review:', review.review) }
+
+                            console.log('review:', review.review)
+                            return (
+
+                                <div>
+                                    <h2 key={index}>{review.review}</h2>
+                                </div>
+
+                            )
+
                         })}
 
                     </>

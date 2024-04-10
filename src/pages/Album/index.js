@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import Review from '../../components/Review';
 import { FaSpotify } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
+import { getUserData, auth, getReviewById } from "../../database/firebase";
 import spotify from "../../util/spotify";
 
 import './album.scss';
@@ -12,6 +13,21 @@ export default function AlbumPage() {
     const { albumId } = useParams();
     const [album, setAlbum] = useState({});
     const [loading, setLoading] = useState(true);
+    const [reviews, setReviews] = useState([])
+
+
+    //const 
+
+
+    useEffect(() => {
+        getReviewById(setReviews, albumId);
+        // const current = auth.currentUser;
+        // console.log(current)
+        // if (current) {
+        //   getUserData(current, setUserInfo)
+        // }
+    }, [])
+
 
     useEffect(() => {
         const fetchAlbumDetails = async () => {
@@ -88,7 +104,14 @@ export default function AlbumPage() {
                 )}
                 <h2>WRITE A REVIEW</h2>
                 <Review albumId={albumId} albumName= {album.name}/>
+
+
                 <h2>REVIEWS</h2>
+                {reviews.map((review, index) => {
+                    <div key = {index}>{review.review}</div>
+                    {console.log('review:', review.review)}
+                })}
+
             </div>
             <Footer />
         </>

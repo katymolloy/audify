@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs, where, query } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
@@ -79,6 +79,7 @@ export const writeReviewToDb = async (albumId, albumName, review, rating) => {
   }
 }
 
+
 export const getReviews = async (setReviews) => {
   const querySnapshot = await getDocs(collection(db, "reviews"));
   let returnReviews = [];
@@ -92,6 +93,24 @@ export const getReviews = async (setReviews) => {
   setReviews(returnReviews)
 }
 
+
+
+export const getReviewById = async (setReviews, id) => {
+
+  const reviewReference = collection(db, 'reviews');
+  const queryVariable = query(reviewReference, where('albumId', '==', id));
+
+  const querySnapshot = await getDocs(queryVariable);
+  let returnReviews = [];
+  querySnapshot.forEach((doc) => {
+    let userReviews = doc.data().reviews
+    for (let i  = 0; i < userReviews.length; i++) {
+      returnReviews.push(userReviews[i]);
+    }
+  });
+
+  setReviews(returnReviews);
+}
 
 
 

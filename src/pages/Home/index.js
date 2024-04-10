@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import spotify from "../../util/spotify";
 import { getUserData, auth, getReviews } from "../../database/firebase";
 import AlbumCard from "../../components/AlbumCard/index";
+import ReviewCard from "../../components/ReviewCard/index";
+
 import "./home.scss";
 
 /**
@@ -81,18 +83,10 @@ export default function HomePage() {
         <h2>Latest Reviews</h2>
         <div className="reviewsContainer">
           {reviews.map((review, index) => (
-            <div key={index} className="reviewCard">
-              <img src={review.albumImg}></img>
-              <div className="reviewInfo">
-                <Link to={`/album/${review.albumId}`}><h3>{review.album}</h3></Link>
-                <p>{review.review}</p>
-                <p>{review.rating} Stars</p>
-              </div>
-            </div>
+            <ReviewCard key={index} review={review} />
           ))}
         </div>
       </div>
-
       <Footer />
     </>
   );

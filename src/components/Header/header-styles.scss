@@ -24,7 +24,7 @@ header.main {
         color: #fff;
 
         img {
-            width: 60px;
+            width: 50px;
         }
 
         p {
@@ -32,6 +32,7 @@ header.main {
             z-index: 5;
             margin-left: -5px;
             letter-spacing: 2px;
+            font-size: 2rem;
         }
     }
 
@@ -83,8 +84,9 @@ header.main {
             cursor: pointer;
             color: black;
             list-style-type: none;
-            
+
         }
+
         .user-name-list {
             border-bottom: thin solid gray;
         }
@@ -117,7 +119,7 @@ header.main {
         border-radius: 60px;
         margin-right: 3rem;
 
-        input[type = 'text'] {
+        input[type='text'] {
 
             background: transparent;
             flex: 1;

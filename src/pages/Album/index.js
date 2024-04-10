@@ -102,16 +102,18 @@ export default function AlbumPage() {
                     </div>
 
                 )}
-                <h2>WRITE A REVIEW</h2>
-                <Review albumId={albumId} albumName= {album.name}/>
+                {!loading && (
+                    <>
+                        <h2>WRITE A REVIEW</h2>
+                        <Review albumId={albumId} albumName={album.name} albumImg={album.images[0].url} />
+                        <h2>REVIEWS</h2>
+                        {reviews.map((review, index) => {
+                            <div key={index}>{review.review}</div>
+                            { console.log('review:', review.review) }
+                        })}
 
-
-                <h2>REVIEWS</h2>
-                {reviews.map((review, index) => {
-                    <div key = {index}>{review.review}</div>
-                    {console.log('review:', review.review)}
-                })}
-
+                    </>
+                )}
             </div>
             <Footer />
         </>

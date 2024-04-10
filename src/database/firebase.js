@@ -46,6 +46,7 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
   const docRef = doc(db, 'users', current.uid);
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
+    currentUsername = docSnap.data().username
     let oldReviews = docSnap.data().reviews;
     if (oldReviews.length > 0) {
       oldReviews.forEach((oldReview) => {
@@ -54,11 +55,27 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
             reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
           }, { merge: true })
           console.log('Review saved')
+
+          setDoc(doc(db, 'reviews', albumId), {
+            reviews: arrayUnion({
+              album: albumName,
+              albumId: albumId,
+              albumImg: albumImg,
+              review: review,
+              rating: rating,
+              author: currentUsername,
+              authorId: current.uid
+            })
+          }, { merge: true })
           return;
         } else {
           console.log('Review already saved')
           return;
         }
+
+
+
+
       })
     } else {
       setDoc(docRef, {
@@ -74,51 +91,6 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
 
 
 
-  // const docRef = doc(db, 'users', current.uid);
-  // const docSnap = await getDoc(docRef)
-  // if (docSnap.exists()) {
-  //   currentUsername = docSnap.data().username;
-
-  //   let userData = docSnap.data();
-  //   if (!userData.reviews) {
-  //     userData.reviews = [];
-  //   }
-
-  //   let reviews = userData.reviews;
-  //   if (reviews.length > 0) {
-  //     reviews.forEach((review) => {
-  //       if (review.albumId !== albumId) {
-  //         setDoc(docRef, {
-  //           reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
-  //         }, { merge: true })
-  //         console.log('Review saved')
-
-  //       } else {
-  //         console.log('Album already reviewed')
-
-  //       }
-  //     })
-  //   } else {
-  //     setDoc(docRef, {
-  //       reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
-  //     }, { merge: true })
-  //   }
-  // } else {
-  //   console.log('Error finding user data')
-
-  // }
-
-  await setDoc(doc(db, 'reviews', albumId), {
-    reviews: arrayUnion({
-      album: albumName,
-      albumId: albumId,
-      albumImg: albumImg,
-      review: review,
-      rating: rating,
-      author: currentUsername,
-      authorId: current.uid
-    })
-  }, { merge: true })
 
 
 }
@@ -198,10 +170,6 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
       email: email,
       display: displayName,
       reviews: [],
-    }).then(() => {
-      console.log('New user added to db')
-    }).catch((error) => {
-      console.log('Error writing user to database: ', error)
     })
 
     await setDoc(doc(db, "usernames", username), {

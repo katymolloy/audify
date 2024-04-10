@@ -1,11 +1,11 @@
 /* Header of Audify */
-
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { BsPersonCircle } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import "./header-styles.scss";
 
@@ -17,21 +17,19 @@ import "./header-styles.scss";
  * @returns {JSX.Element} Header component.
  */
 export default function Header({ onLogout, username }) {
-
+  const navigate = useNavigate();
+  const [openMenu, setOpenMenu] = useState(false);
+  
+  
   const search = () => {
     console.log("here");
   };
 
-  const [openMenu, setOpenMenu] = useState(false);
 
-  // const menuRef = useRef();
-  // const svgRef = useRef();
-
-  // window.addEventListener("click", (e) => {
-  //   if (e.target !== menuRef.current && e.target !== svgRef.current) {
-  //     setOpenMenu(false)
-  //   }
-  // })
+  const logoutHandler = () => {
+    onLogout();
+    navigate("/");
+  };
 
   return (
     <>
@@ -41,10 +39,12 @@ export default function Header({ onLogout, username }) {
           <p>udify</p>
         </a>
 
-        <a className="user-section" onClick = {() => setOpenMenu((prev) => !prev)}>
+        <a
+          className="user-section"
+          onClick={() => setOpenMenu((prev) => !prev)}
+        >
           <BsPersonCircle />
           <IoIosArrowDown className="arrow-down" />
-
         </a>
 
         {/* <a className="user-section" href="/account" onClick = {() => setOpenMenu(true)}>
@@ -53,18 +53,19 @@ export default function Header({ onLogout, username }) {
 
         </a> */}
 
-        {
-          openMenu && (
-            <div className="flex flex-col dropDownMenu">
-              <ul className='flex flex-col gap-4'>
-                <li onClick = {username} className = "user-name-list">user_name</li>
-                <li onClick = {onLogout}>Log Out</li>
-              </ul>
-            </div>
-          )
-        }
-        {/* <button type="button" onClick={onLogout}>Log Out</button> */}
-
+        {openMenu && (
+          <div className="flex flex-col dropDownMenu">
+            <ul className="flex flex-col gap-4">
+              <li onClick={username} className="user-name-list">
+                user_name
+              </li>
+              <li onClick={onLogout}>Log Out</li>
+            </ul>
+          </div>
+        )}
+        <button type="button" onClick={logoutHandler}>
+          Log Out
+        </button>
 
         <form action="" className="search-bar">
           <input
@@ -74,7 +75,7 @@ export default function Header({ onLogout, username }) {
             onSubmit={search}
           />
           <button type="submit">
-            <Link to='/album'>
+            <Link to="/album">
               <IoSearchOutline />
             </Link>
           </button>
@@ -86,5 +87,4 @@ export default function Header({ onLogout, username }) {
       </header>
     </>
   );
-
 }

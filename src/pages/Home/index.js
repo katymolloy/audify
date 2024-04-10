@@ -3,8 +3,9 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import spotify from "../../util/spotify";
-import { signOut, getAuth } from "firebase/auth";
 
+import { logOutUser, getUserData, auth } from "../../database/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import "./home.scss";
 
 /**
@@ -14,25 +15,24 @@ import "./home.scss";
  * @param {string} props.username - The username of the user.
  * @returns {JSX.Element} Home page component.
  */
-export default function HomePage({ userDisplay, username }) {
+export default function HomePage() {
   const [albums, setAlbums] = useState([]);
   const [savedAlbums, setSavedAlbums] = useState([]);
-  const navigate = useNavigate();
+  const [display, setDisplay] = useState('')
+  const [userInfo, setUserInfo] = useState({})
 
-  /**
-   * Logs out the current user.
-   */
-  const logOutUser = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        console.log("logged out");
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log("Error signing out " + error);
-      });
-  };
+
+  useEffect(() => {
+    const current = auth.currentUser;
+    console.log(current)
+    if (current) {
+
+      getUserData(current, setUserInfo)
+      setDisplay(userInfo.display)
+    }
+  }, [])
+
+
 
   useEffect(() => {
     /**
@@ -52,17 +52,21 @@ export default function HomePage({ userDisplay, username }) {
 
   return (
     <>
-      <Header onLogout={logOutUser} username={username}></Header>
+      <Header onLogout={logOutUser}></Header>
 
       <div className="homeContainer">
         <h1>
-          Welcome Back {userDisplay}, Here's What We've Been Listening To...
+          {display ?
+            <div>Welcome Back {display}, Here's What We've Been Listening To...</div>
+            :
+            <div>Welcome Back, Here's What We've Been Listening To...</div>
+          }
         </h1>
         <h2>New Releases</h2>
         <div className="albums">
           {/* Map through the albums array and display each album */}
-          {albums.map((album) => (
-            <Link className="album" to={`/album/${album.id}`}>
+          {albums.map((album, index) => (
+            <Link className="album" to={`/album/${album.id}`} key={index}>
               <img loading="lazy" src={album.cover} alt={album.name} />
               <h3>{album.name}</h3>
               <p>{album.artist}</p>
@@ -71,8 +75,8 @@ export default function HomePage({ userDisplay, username }) {
         </div>
         <h2>Saved Albums</h2>
         <div className="albums"> {/* Add a div for saved albums */}
-          {savedAlbums.map((album) => (
-            <Link className="album" to={`/album/${album.id}`}>
+          {savedAlbums.map((album, index) => (
+            <Link className="album" to={`/album/${album.id}`} key={index}>
               <img src={album.cover} alt={album.name} />
               <h3>{album.name}</h3>
 

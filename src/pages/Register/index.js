@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../database/firebase";
 import "./register.scss";
-import { db } from "../../database/firebase";
+import { db, writeUserToDb, registerUser } from "../../database/firebase";
 
 import { redirectUri, clientId } from "../../util/spotify";
 import { doc, setDoc, getDocs, collection } from "firebase/firestore";
@@ -17,10 +17,8 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
   const [username, setUsername] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [profilePic, setProfilePic] = useState("");
   const [unavailUsers, setUnavailUsers] = useState([]);
   const [errorMsg, setErrorMsg] = useState([]);
 
@@ -53,73 +51,8 @@ export default function RegisterPage() {
     retrieveUsernames();
   }, []);
 
-  /**
-   * @description 
-   * - Writes user data to the database.   *
-   * - The provided user ID is used as the document ID in the 'users' collection.   *
-   * - Additionally, the username is used as the document ID in the 'usernames' collection.
-   * @async
-   * @function writeToDb
-   * @param {string} userId - The unique identifier of the user.
-   * @returns {Promise<void>} A Promise that resolves once the user data is successfully written to the database.
-   */
-  const writeToDb = async (userId) => {
-    try {
-      await setDoc(doc(db, "users", userId), {
-        uid: userId,
-        username: username,
-        password: password,
-        email: email,
-        display: displayName,
-        pfp: profilePic,
-      });
 
-      await setDoc(doc(db, "usernames", username), {
-        username: username,
-        password: password,
-        email: email,
-        uid: userId,
-      });
-      // console.log("Data added successfully");
 
-      navigate("/home");
-    } catch (error) {
-      console.log(`Error writing to database: ${error}`);
-    }
-  };
-
-  /**
-   * Registers a new user with the provided email and password.
-   * If there are no error messages, the user is created with the provided credentials
-   * and their UID is written to the database.
-   * @async
-   * @function registerUser
-   * @returns {Promise} A Promise that resolves once the user is successfully registered and written to the database.
-   */
-  const registerUser = async () => {
-    if (errorMsg.length === 0) {
-      await createUserWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
-          const user = userCredential.user;
-          writeToDb(user.uid);
-        }
-      );
-    }
-  };
-
-  // const handleImageSubmit = () => {
-
-  // }
-
-  // const authorizeSpotify = () => {
-  //     window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
-  //     setAuthSpotify(true)
-  // }
-
-  /**
-   * This function is the event handler for the form submission. It validates the form data and, if valid, registers the user.
-   * @param {Event} e The form submission event.
-   */
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -153,7 +86,9 @@ export default function RegisterPage() {
 
     // run when no data is invalid/missing
     if (validate.length === 0) {
-      registerUser();
+      let user = registerUser(email, password);
+      writeUserToDb(user, username, email, displayName);
+      navigate('/home')
     }
   };
 
@@ -196,13 +131,6 @@ export default function RegisterPage() {
               onChange={(e) => setDisplayName(e.target.value)}
             ></input>
           </div>
-
-          {/* <div>
-                    <label>Profile Picture <input
-                        type="file"
-                        onChange={handleImageSubmit}
-                    ></input></label>
-                </div> */}
 
           <div>
             <input

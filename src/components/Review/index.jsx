@@ -1,27 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-
+import React, { useState } from "react";
+import { writeReviewToDb } from "../../database/firebase";
 import { FaStar } from "react-icons/fa6";
 
-import './review.scss';
+import "./review.scss";
 
 /**
  * Renders the review component.
  * @returns {JSX.Element} Review component.
  */
-export default function Review() {
+export default function Review({ albumId, albumName }) {
   const [reviewMessage, setReviewMessage] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
-  /**
-   * Handles the submission of the review.
-   * Backend functionality can be implemented here.
-   */
-  const handleReviewSubmit = () => {
-    // Back-end functionality goes here. . .
-    console.log("The review has been submitted");
+
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    writeReviewToDb(albumId, albumName, reviewMessage, rating);
   };
 
   return (

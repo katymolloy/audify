@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Review from '../../components/Review';
 import { FaSpotify } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import spotify from "../../util/spotify";
 
 import './album.scss';
@@ -41,6 +41,7 @@ export default function AlbumPage() {
         <>
             <Header />
             <div className='main'>
+                <Link to={'/home'}>Home</Link>
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
@@ -86,7 +87,7 @@ export default function AlbumPage() {
 
                 )}
                 <h2>WRITE A REVIEW</h2>
-                <Review />
+                <Review albumId={albumId} albumName= {album.name}/>
                 <h2>REVIEWS</h2>
             </div>
             <Footer />

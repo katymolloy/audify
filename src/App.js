@@ -8,8 +8,7 @@ import AccountPage from './pages/Account';
 import AlbumPage from './pages/Album';
 import AboutPage from './pages/About';
 import NotFound from './pages/NotFound';
-
-
+import SearchPage from './pages/Search';
 
 import { useState } from 'react';
 
@@ -53,6 +52,7 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/album/:albumId" element={<AlbumPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/search/:search" element={<SearchPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

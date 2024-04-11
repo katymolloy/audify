@@ -31,11 +31,19 @@ export default function HomePage() {
     }
   }, [])
 
-
   useEffect(() => {
+    setTimeout(() => {
+      const currentUser = auth.currentUser.displayName;
+      console.log('current user', currentUser);
+      setDisplay(currentUser)
 
-    setDisplay(userInfo.display);
-  }, [userInfo]);
+    }, 1000);
+  }, [])
+
+  // useEffect(() => {
+
+  //   setDisplay(userInfo.display);
+  // }, [userInfo]);
 
 
   useEffect(() => {

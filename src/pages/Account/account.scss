@@ -56,4 +56,19 @@
         display: flex;
         flex-wrap: wrap;
     }
+
+    .logout{
+        background-color: #1DB954;
+        font-size: 12px;
+        padding: 6px 12px;
+        margin: 3px;
+        border-radius: 12px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .logout:hover{
+        background-color: #cccccc;
+    }
 }

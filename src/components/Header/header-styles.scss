@@ -4,7 +4,7 @@ header.main {
 
     display: flex;
     justify-content: flex-end;
-    align-items: 'center';
+    align-items: center;
     padding: 0.3rem;
     background-color: #000;
     color: $title-color;
@@ -36,78 +36,26 @@ header.main {
         }
     }
 
-    display: flex;
-    align-items: center;
-
-
     .user-section {
         text-decoration: none;
         color: #fff;
     }
 
+    .accountIcon {
+        color: #fff;
+        font-size: 32px;
+        transition: .3s;
+        margin-top: 4px;
+        margin-right: 15px;
 
-    .user-section {
-
-        display: flex;
-        align-items: center;
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: $title-color;
-
-        svg {
-
-            cursor: pointer;
-            font-size: 1.3rem;
-            color: $title-color;
-            margin-right: 0.5rem;
-            margin-left: 0.3rem;
-
+        &:hover {
+            color: #aaa;
         }
     }
 
-
-    .dropDownMenu {
-
-        display: flex;
-        position: absolute;
-        top: 4.5rem;
-        right: 14.8rem;
-        width: 5rem;
-        padding: 1rem;
-        border-radius: 15px;
-        background-color: #fff;
-        border: 1px solid gray;
-
-        li {
-
-            padding: 0.3rem 0;
-            cursor: pointer;
-            color: black;
-            list-style-type: none;
-
-        }
-
-        .user-name-list {
-            border-bottom: thin solid gray;
-        }
-
+    .logout {
+        padding: 3px 10px;
     }
-
-    .dropDownMenu::before {
-
-        content: '';
-        position: absolute;
-        top: -0.8rem;
-        right: 2rem;
-        width: 1.5rem;
-        height: 1.5rem;
-        transform: rotate(45deg);
-        background-color: white;
-        border-left: 1px solid gray;
-        border-top: 1px solid gray;
-
-    }
-
 
     form.search-bar {
 

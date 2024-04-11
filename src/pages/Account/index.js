@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { MdThumbUp } from "react-icons/md";
-import { getUserData, auth } from '../../database/firebase';
+import { getUserData, auth, logOutUser } from '../../database/firebase';
 import { Link } from "react-router-dom";
 import ReviewCard from "../../components/ReviewCard/index";
+import { useNavigate } from "react-router-dom";
 // import { MdOutlineThumbUp } from "react-icons/md";
 // import { BsPersonCircle } from "react-icons/bs";
 // import ImageUpload from '../../components/ImageUpload/ImageUpload';
@@ -22,6 +23,8 @@ export default function AccountPage() {
     const [reviews, setReviews] = useState([])
     const [username, setUsername] = useState('')
     const [numOfReviews, setNumOfReviews] = useState(0)
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const current = auth.currentUser;
@@ -50,6 +53,11 @@ export default function AccountPage() {
         console.log(reviews)
     }, [reviews])
 
+    const logoutHandler = () => {
+        logOutUser();
+        navigate("/");
+    };
+
     return (
         <>
             <Header />
@@ -58,6 +66,10 @@ export default function AccountPage() {
                 <h1>Hi there, {displayName}</h1>
                 <h2>@{username}</h2>
                 <p>{numOfReviews} reviews</p>
+
+                <button type="button" onClick={logoutHandler} className="logout">
+                    Log Out
+                </button>
                 {/* <div className="accountInfo">
                
                     <p><MdThumbUp />Rep: +1337</p>

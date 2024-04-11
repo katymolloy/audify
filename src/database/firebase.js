@@ -52,7 +52,7 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
       oldReviews.forEach((oldReview) => {
         if (oldReview.albumId !== albumId) {
           setDoc(docRef, {
-            reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
+            reviews: arrayUnion({ album: albumName, review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
           }, { merge: true })
           console.log('Review saved')
 
@@ -81,7 +81,7 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
       })
     } else {
       setDoc(docRef, {
-        reviews: arrayUnion({ review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
+        reviews: arrayUnion({ album: albumName, review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
       }, { merge: true })
       return;
     }

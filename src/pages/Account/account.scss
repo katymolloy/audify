@@ -64,9 +64,10 @@
         outline: none;
         cursor: pointer;
         width: 10%;
+        transition: .3s;
     }
 
     .logout:hover{
-        background-color: #cccccc;
+        background-color: #1aaa4c;
     }
 }

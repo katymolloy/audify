@@ -119,34 +119,35 @@ export const getReviews = async (setReviews) => {
 
 
 
-
-
-
 export const getReviewsForAlbum = async (setReviews, albumId) => {
   const docRef = doc(db, 'reviews', albumId)
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     setReviews(docSnap.data().reviews)
 
-
+    console.log(docSnap.data().reviews);
   }
 
 }
 
-// export const getReviewById = async (setReviews, id) => {
+// export const getReviewsForAlbum = async (setReviews, albumId) => {
+//   const querySnapshot = await getDocs(collection(db, "reviews"));
 
-//   const querySnapshot = await getDocs(doc (db, "reviews", id));
-//   const docRef = doc(db, "reviews", id);
-//   const docSnap = await getDoc(querySnapshot);
+//   // const querySnapshot = await getDocs(doc (db, "reviews", id));
+//   // const docRef = doc(db, "reviews", id);
+//   // const docSnap = await getDoc(querySnapshot);
 
 //   let returnReviews = [];
 //   querySnapshot.forEach((doc) => {
 //     let userReviews = doc.data().reviews
 //     for (let i  = 0; i < userReviews.length; i++) {
-//       returnReviews.push(userReviews[i]);
+//       if(userReviews[i].albumId === albumId){
+//         returnReviews.push(userReviews[i]);
+//       }
+      
 //     }
 //   });
-
+//   console.log(returnReviews);
 //   setReviews(returnReviews);
 // }
 

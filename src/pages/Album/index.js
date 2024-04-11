@@ -6,7 +6,11 @@ import ReviewCard from '../../components/ReviewCard';
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { FaSpotify } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
+<<<<<<< HEAD
 import { getReviewsForAlbum, } from "../../database/firebase";
+=======
+import { getReviewsForAlbum } from '../../database/firebase';
+>>>>>>> 766fda0afaeadd34dba18ce247af62e42772a0d2
 
 import spotify from "../../util/spotify";
 
@@ -20,8 +24,11 @@ export default function AlbumPage() {
 
     useEffect(() => {
         getReviewsForAlbum(setReviews, albumId)
-        console.log(reviews)
     }, [albumId])
+
+    useEffect(() => {
+        console.log(reviews);
+    }, [reviews])
 
 
     useEffect(() => {
@@ -49,6 +56,7 @@ export default function AlbumPage() {
     }
 
     return (
+
         <>
             <Header />
             <div className='main'>
@@ -103,6 +111,8 @@ export default function AlbumPage() {
                     </div>
 
                 )}
+
+
                 {!loading && (
                     <>
                         <h2>WRITE A REVIEW</h2>
@@ -111,7 +121,12 @@ export default function AlbumPage() {
                         {reviews.length > 0 ?
                             <div>
                                 {reviews.map((review, index) => {
-                                    <div>{review}</div>
+                                    console.log('review:', review.review)
+                                    return (
+        
+                                        <ReviewCard key={index} review={review} />
+        
+                                    )
                                 })}
                             </div>
 
@@ -123,5 +138,6 @@ export default function AlbumPage() {
             </div>
             <Footer />
         </>
+
     );
 }

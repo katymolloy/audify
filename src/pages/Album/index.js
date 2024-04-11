@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import Review from '../../components/Review';
 import ReviewCard from '../../components/ReviewCard';
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaSpotify } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { getReviewsForAlbum, } from "../../database/firebase";
@@ -56,7 +57,7 @@ export default function AlbumPage() {
         <>
             <Header />
             <div className='main'>
-                <Link to={'/home'}>Home</Link>
+                <Link to={'/home'} className='backLink'><IoMdArrowRoundBack />Home</Link>
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
@@ -115,13 +116,11 @@ export default function AlbumPage() {
                         <Review albumId={albumId} albumName={album.name} albumImg={album.images[0].url} />
                         <h2>REVIEWS</h2>
                         {reviews.length > 0 ?
-                            <div>
+                            <div className='reviewContainer'>
                                 {reviews.map((review, index) => {
                                     console.log('review:', review.review)
                                     return (
-
                                         <ReviewCard key={index} review={review} />
-
                                     )
                                 })}
                             </div>

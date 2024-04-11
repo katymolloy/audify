@@ -8,7 +8,7 @@ const ReviewCard = ({ review }) => {
     const renderStars = (rating) => {
         const stars = [];
         const maxRating = 5;
-        const filledStarColor = "#18bb51"; // Change this to the desired color
+        const filledStarColor = "#1db954"; // Change this to the desired color
         const emptyStarColor = "#ccc"; // Change this to the desired color for empty stars
 
         for (let i = 0; i < maxRating; i++) {
@@ -24,7 +24,7 @@ const ReviewCard = ({ review }) => {
 
     return (
         <div className="reviewCard">
-            <img src={review.albumImg} alt={review.album} />
+            <img src={review.albumImg} alt={review.album} loading="lazy" />
             <div className="reviewInfo">
                 <div>
                     <Link to={`/album/${review.albumId}`}>

@@ -5,9 +5,19 @@ div.main {
     margin-right: $screen-margin-right;
     margin-left: $screen-margin-left;
 
+    .backLink {
+        display: flex;
+        align-items: center;
+        color: #000;
+        text-decoration: none;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
     .album-section {
 
         display: flex;
+        margin: 15px 0;
 
         .img {
             padding: 15px;
@@ -28,7 +38,7 @@ div.main {
 
             span {
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
 
                 a {
                     margin: 5px;
@@ -171,6 +181,13 @@ div.main {
         h2 {
             margin: 12px 0;
             border-bottom: 3px solid #000;
+        }
+
+        .reviewContainer {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
         }
     }
 

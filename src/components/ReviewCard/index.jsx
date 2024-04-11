@@ -5,11 +5,19 @@ import { FaStar } from "react-icons/fa";
 import "./reviewcard.scss";
 
 const ReviewCard = ({ review }) => {
-
     const renderStars = (rating) => {
         const stars = [];
-        for (let i = 0; i < rating; i++) {
-            stars.push(<FaStar key={i} />);
+        const maxRating = 5;
+        const filledStarColor = "#18bb51"; // Change this to the desired color
+        const emptyStarColor = "#ccc"; // Change this to the desired color for empty stars
+
+        for (let i = 0; i < maxRating; i++) {
+            stars.push(
+                <FaStar
+                    key={i}
+                    color={i < rating ? filledStarColor : emptyStarColor}
+                />
+            );
         }
         return stars;
     };

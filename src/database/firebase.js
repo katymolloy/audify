@@ -1,6 +1,14 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs } from "firebase/firestore";
+import { getAuth, signOut, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  getDoc,
+  arrayUnion,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -187,6 +195,10 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
       reviews: [],
     })
 
+    await updateProfile(auth.currentUser, {
+      displayName,
+    });
+    
     await setDoc(doc(db, "usernames", username), {
       username: username,
       email: email,

@@ -80,8 +80,11 @@ export default function RegisterPage() {
 
     // run when no data is invalid/missing
     if (validate.length === 0) {
-      registerUser(email, password, displayName, username)
-      navigate('/home')
+      registerUser(email, password, displayName, username);
+      setTimeout(() => {
+        navigate('/home')
+
+      }, 2000);
     }
   };
 

@@ -1,6 +1,7 @@
 /* Footer of Audify */
 
 import { FaSpotify } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import "./footer-styles.scss";
 
@@ -12,10 +13,10 @@ export default function Footer() {
   return (
     <footer className="footer-main">
       <div className="shoutout-logo">
-        <a className="audify-logo" href="/home">
+        <Link className="audify-logo" to="/home">
           <img src="/images/AudifyLogo.png" alt="Audify Logo"></img>
           <p>udify</p>
-        </a>
+        </Link>
         <div className="shoutout">
           <FaSpotify />
           Powered By Spotify
@@ -24,11 +25,8 @@ export default function Footer() {
 
       <div className="links-section">
         <div className="title">Quick Links</div>
-
-        <a href="/account">My Account</a>
-
-        <a href="/about">About Us</a>
-
+        <Link to="/account">My Account</Link>
+        <Link to="/about">About Us</Link>
       </div>
 
       <div className="copyright">

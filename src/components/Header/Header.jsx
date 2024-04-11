@@ -35,7 +35,7 @@ export default function Header({ username }) {
       <header className="main">
         <Link to={'/home'} className="audify-logo" >
           <img src="/images/AudifyLogo.png" alt="Audify Logo"></img>
-          <p>udify</p>
+          <p className="logoText">udify</p>
         </Link>
 
         <Link to={'/account'} className="accountIcon">

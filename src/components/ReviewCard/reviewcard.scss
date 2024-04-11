@@ -1,17 +1,19 @@
+@import './../../styles/variables.scss';
+
 .reviewCard {
     display: flex;
     padding: 10px;
     border-radius: 10px;
     transition: .3s;
-    width: 450px;
+    width: 100%;
 
     &:hover {
         background-color: #eee;
     }
 
     img {
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
         border-radius: 5px;
     }
 
@@ -60,4 +62,29 @@
             }
         }
     }
+}
+
+
+@include breakpoint-medium {
+    .reviewCard {
+        width: 400px;
+
+        img {
+            width: 125px;
+            height: 125px;
+        }
+    }
+}
+
+@include breakpoint-large {
+    .reviewCard {
+        width: 450px;
+
+        img {
+            width: 150px;
+            height: 150px;
+        }
+    }
+
+
 }

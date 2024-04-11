@@ -18,7 +18,7 @@ header.main {
         font-size: 3rem;
         line-height: 3rem;
         font-weight: bold;
-        margin-left: 2rem;
+        margin-left: .5rem;
         text-transform: uppercase;
         text-decoration: none;
         color: #fff;
@@ -27,7 +27,8 @@ header.main {
             width: 50px;
         }
 
-        p {
+        .logoText {
+            display: none;
             padding-bottom: 8px;
             z-index: 5;
             margin-left: -5px;
@@ -61,11 +62,9 @@ header.main {
 
         display: flex;
         align-items: center;
-        //width: 100%;
-        //max-width: 10rem;
         background-color: white;
         border-radius: 60px;
-        margin-right: 3rem;
+        margin-right: .5rem;
 
         input[type='text'] {
 
@@ -93,6 +92,20 @@ header.main {
 
         }
 
+    }
+
+    @include breakpoint-medium {
+        .audify-logo {
+            margin-left: 2rem;
+
+            .logoText {
+                display: block;
+            }
+        }
+
+        form.search-bar {
+            margin-right: 2rem;
+        }
     }
 
 }

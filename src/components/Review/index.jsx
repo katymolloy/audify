@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { writeReviewToDb } from "../../database/firebase";
 import { FaStar } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 import "./review.scss";
 
@@ -12,6 +13,8 @@ export default function Review({ albumId, albumName, albumImg }) {
   const [reviewMessage, setReviewMessage] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+
+  const navigate = useNavigate();
 
 
   const handleReviewSubmit = (e) => {
@@ -31,6 +34,13 @@ export default function Review({ albumId, albumName, albumImg }) {
     const timestamp = `${hour}:${d.getMinutes()}${amOrPm}`
 
     writeReviewToDb(albumId, albumImg, albumName, reviewMessage, rating, dateTimestamp, timestamp);
+
+    // Clearing Everything
+    setReviewMessage('');
+    setRating(0);
+
+    navigate(`/home`);
+
   };
 
   return (

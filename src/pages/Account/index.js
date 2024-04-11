@@ -64,7 +64,7 @@ export default function AccountPage() {
                 </div> */}
                 <h2>Reviews</h2>
                 {reviews ?
-                    <div>
+                    <div className="reviewContainer">
                         {reviews.map((review, index) => (
                             <ReviewCard key={index} review={review} />
                         ))}
@@ -72,7 +72,6 @@ export default function AccountPage() {
                     :
                     <>No reviews yet</>
                 }
-
                 {/* <h2>Options</h2> */}
                 {/* <div className='accountOptions'>
                         <p>Profile Picture:</p> 

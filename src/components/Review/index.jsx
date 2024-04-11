@@ -23,10 +23,10 @@ export default function Review({ albumId, albumName, albumImg }) {
     let amOrPm = ''
     if (hour > 12) {
       hour = hour - 12
-      amOrPm = 'pm'
+      amOrPm = 'PM'
     } else {
       hour = hour
-      amOrPm = 'am'
+      amOrPm = 'AM'
     }
     const timestamp = `${hour}:${d.getMinutes()}${amOrPm}`
 

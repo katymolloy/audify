@@ -1,6 +1,13 @@
 .reviewCard {
     display: flex;
-    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: .3s;
+    width: 450px;
+
+    &:hover {
+        background-color: #eee;
+    }
 
     img {
         width: 150px;
@@ -9,9 +16,49 @@
     }
 
     .reviewInfo {
-        width: 300px;
+        margin-left: 5px;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+
+        span {
+            display: flex;
+            align-items: center;
+
+            .date {
+                font-size: 1rem;
+                color: #444;
+            }
+
+            .author {
+                font-size: 1rem;
+                text-transform: capitalize;
+                margin-right: 3px;
+            }
+
+        }
+
+        a {
+            text-decoration: none;
+
+            h3 {
+                color: #000;
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+        }
+
+        .review {
+            height: 40px;
+        }
+
+        .starRating {
+
+            svg {
+                margin: 4px 2px;
+                font-size: 1.25rem;
+                color: #18bb51;
+            }
+        }
     }
 }

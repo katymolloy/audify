@@ -47,26 +47,13 @@
         background: #000000;
     }
 
-    .account-info{
+    .account-info {
         display: flex;
         flex-direction: column;
     }
 
-    .album {
-        margin-right: 15px;
+    .reviewContainer {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        img {
-            width: 200px;
-        }
-
-        a {
-            text-decoration: none;
-            color: black;
-
-        }
+        flex-wrap: wrap;
     }
 }

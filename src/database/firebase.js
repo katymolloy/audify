@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs, query, where } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
@@ -40,48 +40,54 @@ export default app;
  */
 export const writeReviewToDb = async (albumId, albumImg, albumName, review, rating, date, timestamp) => {
   let current = auth.currentUser;
-  let currentUsername = ''
+  let currentUsername = '';
 
+  const docRef1 = doc(db, 'users', current.uid);
+  const docRef2 = doc(db, 'reviews', albumId);
+  const docSnap = await getDoc(docRef1)
 
-  const docRef = doc(db, 'users', current.uid);
-  const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
     currentUsername = docSnap.data().username
     let oldReviews = docSnap.data().reviews;
+
+    const dataToWrite = {
+      album: albumName,
+      albumId: albumId,
+      albumImg: albumImg,
+      review: review,
+      rating: rating,
+      date: date,
+      time: timestamp,
+      author: currentUsername,
+      authorId: current.uid
+    }
+
+
     if (oldReviews.length > 0) {
       oldReviews.forEach((oldReview) => {
         if (oldReview.albumId !== albumId) {
-          setDoc(docRef, {
-            reviews: arrayUnion({ album: albumName, review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
-          }, { merge: true })
-          console.log('Review saved')
 
-          setDoc(doc(db, 'reviews', albumId), {
-            reviews: arrayUnion({
-              album: albumName,
-              albumId: albumId,
-              albumImg: albumImg,
-              review: review,
-              rating: rating,
-              date: date,
-              time: timestamp,
-              author: currentUsername,
-              authorId: current.uid
-            })
+          setDoc(docRef1, {
+            reviews: arrayUnion(dataToWrite)
           }, { merge: true })
-          return;
+
+          setDoc(docRef2, {
+            reviews: arrayUnion(dataToWrite)
+          }, { merge: true })
+
         } else {
           console.log('Review already saved')
           return;
         }
-
-
-
-
       })
+
     } else {
-      setDoc(docRef, {
-        reviews: arrayUnion({ album: albumName, review: review, rating: rating, date: date, time: timestamp, albumId: albumId, albumImg: albumImg, author: currentUsername })
+      setDoc(docRef1, {
+        reviews: arrayUnion(dataToWrite)
+      }, { merge: true })
+
+      setDoc(docRef2, {
+        reviews: arrayUnion(dataToWrite)
       }, { merge: true })
       return;
     }
@@ -96,6 +102,14 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
 
 
 }
+
+
+
+
+
+
+
+
 
 
 export const getReviews = async (setReviews) => {
@@ -113,26 +127,22 @@ export const getReviews = async (setReviews) => {
 
 
 
-export const getReviewById = async (setReviews, id) => {
-  const querySnapshot = await getDocs(collection(db, "reviews"));
+// export const getReviewById = async (setReviews, id) => {
 
-  // const querySnapshot = await getDocs(doc (db, "reviews", id));
-  // const docRef = doc(db, "reviews", id);
-  // const docSnap = await getDoc(querySnapshot);
+//   const querySnapshot = await getDocs(doc (db, "reviews", id));
+//   const docRef = doc(db, "reviews", id);
+//   const docSnap = await getDoc(querySnapshot);
 
-  let returnReviews = [];
-  querySnapshot.forEach((doc) => {
-    let userReviews = doc.data().reviews
-    for (let i = 0; i < userReviews.length; i++) {
-      if (userReviews[i].albumId === id) {
-        returnReviews.push(userReviews[i]);
-      }
+//   let returnReviews = [];
+//   querySnapshot.forEach((doc) => {
+//     let userReviews = doc.data().reviews
+//     for (let i  = 0; i < userReviews.length; i++) {
+//       returnReviews.push(userReviews[i]);
+//     }
+//   });
 
-    }
-  });
-  console.log(returnReviews);
-  setReviews(returnReviews);
-}
+//   setReviews(returnReviews);
+// }
 
 
 
@@ -193,26 +203,21 @@ export const writeUserToDb = async (userId, username, email, displayName) => {
  * @returns {Promise} A Promise that resolves once the user is successfully registered and written to the database.
  */
 export const registerUser = async (email, password, display, username) => {
-
-
-  const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user.uid;
-      writeUserToDb(user, username, email, display);
-
-    })
-    .catch((error) => {
-
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('User already exists')
-      }
-      if (error.code === 'auth/weak-password') {
-        console.log('Password is too weak, please try again')
-      }
-
-    })
-}
+  try {
+    const auth = getAuth();
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user.uid;
+    await writeUserToDb(user, username, email, display);
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      console.log('User already exists');
+    }
+    if (error.code === 'auth/weak-password') {
+      console.log('Password is too weak, please try again');
+    }
+    console.error(`Error registering user: ${error.message}`);
+  }
+};
 
 
 

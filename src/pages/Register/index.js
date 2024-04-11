@@ -48,9 +48,6 @@ export default function RegisterPage() {
     retrieveUsernames();
   }, []);
 
-
-
-
   const submitHandler = (e) => {
     e.preventDefault();
     const validate = [];
@@ -83,7 +80,7 @@ export default function RegisterPage() {
 
     // run when no data is invalid/missing
     if (validate.length === 0) {
-    registerUser(email, password, displayName, username)
+      registerUser(email, password, displayName, username)
       navigate('/home')
     }
   };

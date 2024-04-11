@@ -98,14 +98,6 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
 }
 
 
-
-
-
-
-
-
-
-
 export const getReviews = async (setReviews) => {
   const querySnapshot = await getDocs(collection(db, "reviews"));
   let returnReviews = [];

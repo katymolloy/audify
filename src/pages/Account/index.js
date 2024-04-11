@@ -61,8 +61,7 @@ export default function AccountPage() {
     return (
         <>
             <Header />
-            <Link to={'/home'}>Home</Link>
-            <div className='container accountContainer'>
+            <div className='accountContainer'>
                 <h1>Hi there, {displayName}</h1>
                 <h2>@{username}</h2>
                 <p>{numOfReviews} reviews</p>

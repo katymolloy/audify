@@ -1,52 +1,61 @@
 .accountContainer {
-        width: 95%;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-    h1 {
-        margin: 30px 0;
-        font-size: 24px;
-    }
+    width: 95%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     h2 {
-        width: 100%;
-        margin: 30px 0;
+        border-bottom: 3px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
         text-transform: uppercase;
-        border-bottom: 3px solid black;
+        font-size: 1.75rem;
     }
 
-    .albums {
+    .userDetails {
+        margin: 30px 0 60px;
         display: flex;
-        align-items: flex-start;
-        overflow-x: scroll;
-        width: 100%;
-    }
+        align-items: center;
+        justify-content: space-between;
 
-    /* width */
-    ::-webkit-scrollbar {
-        height: 3px;
-    }
+        .account {
+            display: flex;
+            align-items: center;
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
+            svg {
+                font-size: 80px;
+                margin-right: 10px;
+            }
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #474747;
-    }
+            div {
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #000000;
-    }
+                h1 {
+                    font-size: 2.25rem;
+                    text-transform: capitalize;
+                }
 
-    .account-info {
-        display: flex;
-        flex-direction: column;
+                .username {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                }
+
+                .email {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .reviews {
+            font-size: 1.5rem;
+            font-weight: 600;
+
+            strong {
+                font-size: 2rem;
+            }
+        }
+
     }
 
     .reviewContainer {
@@ -54,12 +63,13 @@
         flex-wrap: wrap;
     }
 
-    .logout{
+    .logout {
         background-color: #1DB954;
-        font-size: 12px;
-        padding: 6px 12px;
-        margin: 3px;
-        border-radius: 12px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.25rem;
+        padding: 6px 18px;
+        border-radius: 20px;
         border: none;
         outline: none;
         cursor: pointer;
@@ -67,7 +77,9 @@
         transition: .3s;
     }
 
-    .logout:hover{
+    .logout:hover {
         background-color: #1aaa4c;
     }
+
+
 }

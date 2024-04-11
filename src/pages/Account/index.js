@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { MdThumbUp } from "react-icons/md";
+import { BsPersonCircle } from "react-icons/bs";
 import { getUserData, auth, logOutUser } from '../../database/firebase';
 import { Link } from "react-router-dom";
 import ReviewCard from "../../components/ReviewCard/index";
@@ -22,6 +23,7 @@ export default function AccountPage() {
     const [displayName, setDisplayName] = useState('')
     const [reviews, setReviews] = useState([])
     const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [numOfReviews, setNumOfReviews] = useState(0)
 
     const navigate = useNavigate();
@@ -36,7 +38,7 @@ export default function AccountPage() {
 
     useEffect(() => {
         setDisplayName(userInfo.display);
-
+        setEmail(userInfo.email)
         setUsername(userInfo.username)
         let userReviews = []
         if (userInfo.reviews) {
@@ -62,17 +64,21 @@ export default function AccountPage() {
         <>
             <Header />
             <div className='accountContainer'>
-                <h1>Hi there, {displayName}</h1>
-                <h2>@{username}</h2>
-                <p>{numOfReviews} reviews</p>
+                <span className='userDetails'>
+                    <div className='account'>
+                        <BsPersonCircle />
+                        <div>
+                            <h1>{displayName}</h1>
+                            <p className='username'>@{username}</p>
+                            <p className='email'>{email}</p>
+                        </div>
+                    </div>
+                    <p className='reviews'>Total Reviews: <strong>{numOfReviews}</strong></p>
+                    <button type="button" onClick={logoutHandler} className="logout">
+                        Log Out
+                    </button>
+                </span>
 
-                <button type="button" onClick={logoutHandler} className="logout">
-                    Log Out
-                </button>
-                {/* <div className="accountInfo">
-               
-                    <p><MdThumbUp />Rep: +1337</p>
-                </div> */}
                 <h2>Reviews</h2>
                 {reviews ?
                     <div className="reviewContainer">

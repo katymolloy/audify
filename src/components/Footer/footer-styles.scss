@@ -1,6 +1,5 @@
 @import './../../styles/variables.scss';
 
-
 .footer-main {
 
     width: auto;
@@ -10,6 +9,7 @@
     align-items: center;
     text-align: center;
     justify-content: space-evenly;
+    flex-direction: column;
     color: white;
     background-color: #000;
     gap: 10px;
@@ -81,6 +81,8 @@
 
 
     .links-section {
+        margin: 40px 0;
+
         div {
             font-size: 1.5rem;
         }
@@ -105,4 +107,14 @@
 
     }
 
+}
+
+@include breakpoint-medium {
+    .footer-main {
+        flex-direction: row;
+
+        .links-section {
+            margin: 0;
+        }
+    }
 }

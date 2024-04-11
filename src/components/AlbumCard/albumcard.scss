@@ -1,3 +1,5 @@
+@import './../../styles/variables.scss';
+
 .album {
     text-decoration: none;
     color: black;
@@ -5,10 +7,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10px;
+    padding: 6px;
+    margin-bottom: 3px;
     border-radius: 8px;
     transition: .3s;
-    width: 200px;
+    width: 125px;
 
     &:hover {
         background-color: #f3f3f3;
@@ -23,7 +26,7 @@
 
     h3 {
         margin: 5px 0;
-        height: 30px;
+        height: 42px;
     }
 
     p {
@@ -31,9 +34,37 @@
     }
 
     img {
-        width: 200px;
-        height: 200px;
+        width: 125px;
+        height: 125px;
         background-color: #474747;
         border-radius: 5px;
+    }
+}
+
+@include breakpoint-medium {
+    .album {
+        width: 150px;
+        padding: 8px;
+
+        h3 {
+            height: 30px;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+        }
+    }
+}
+
+@include breakpoint-large {
+    .album {
+        width: 200px;
+        padding: 10px;
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
     }
 }

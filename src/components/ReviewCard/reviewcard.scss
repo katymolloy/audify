@@ -46,7 +46,7 @@
             h3 {
                 color: #000;
                 font-weight: bold;
-                font-size: 1.5rem;
+                font-size: 1.1rem;
             }
         }
 
@@ -72,6 +72,14 @@
         img {
             width: 125px;
             height: 125px;
+        }
+
+        .reviewInfo {
+            a {
+                h3 {
+                    font-size: 1.25rem;
+                }
+            }
         }
     }
 }

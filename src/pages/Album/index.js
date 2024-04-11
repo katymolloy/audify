@@ -3,10 +3,10 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Review from '../../components/Review';
 import ReviewCard from '../../components/ReviewCard';
-
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { FaSpotify } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { getReviewsForAlbum } from '../../database/firebase';
+import { getReviewsForAlbum, } from "../../database/firebase";
 
 import spotify from "../../util/spotify";
 
@@ -63,10 +63,16 @@ export default function AlbumPage() {
                     <div className='album-section'>
                         <div className='img'>
                             <img loading="lazy" src={album.images[0].url} alt={album.name}></img>
-                            <a href={album.external_urls.spotify} target='_blank'>
-                                Open In Spotify
-                                <FaSpotify />
-                            </a>
+                            <span>
+                                <a href={album.external_urls.spotify} target='_blank' className='linkCard'>
+                                    Spotify
+                                    <FaSpotify />
+                                </a>
+                                <Link to={`/search/${album.artists[0].name}`} className='linkCard'>
+                                    More From {album.artists[0].name}
+                                    <FaArrowUpRightFromSquare />
+                                </Link>
+                            </span>
                         </div>
                         <div className='info'>
                             <span>
@@ -82,7 +88,7 @@ export default function AlbumPage() {
                                             <p>{track.name}</p>
                                             <div className='artists'>
                                                 <div className='explicit'>
-                                                    {track.explicit ? 'E' : ''}
+                                                    {track.explicit ? <p>E</p> : ''}
                                                 </div>
                                                 {track.artists.map((artist, index) => (
                                                     <div key={artist.id} className={index !== 0 ? 'name space' : 'name'}>
@@ -104,7 +110,7 @@ export default function AlbumPage() {
 
 
                 {!loading && (
-                    <>
+                    <div className='reviewSection'>
                         <h2>WRITE A REVIEW</h2>
                         <Review albumId={albumId} albumName={album.name} albumImg={album.images[0].url} />
                         <h2>REVIEWS</h2>
@@ -113,9 +119,9 @@ export default function AlbumPage() {
                                 {reviews.map((review, index) => {
                                     console.log('review:', review.review)
                                     return (
-        
+
                                         <ReviewCard key={index} review={review} />
-        
+
                                     )
                                 })}
                             </div>
@@ -123,7 +129,7 @@ export default function AlbumPage() {
                             :
                             <div>No reviews for {album.name} yet!</div>
                         }
-                    </>
+                    </div>
                 )}
             </div>
             <Footer />

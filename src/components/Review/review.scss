@@ -1,78 +1,10 @@
 @import './../../styles/variables.scss';
 
-// .review-component {
-
-//     .review-container {
-
-//         display: flex;
-//         flex: 1; 
-
-//     }
-
-//     div.review-message {
-//         width: 50%;
-//         textarea {
-//             resize: none;
-//             padding: 0.8rem;
-//             height: 7rem;
-//             width: 30rem;
-//             border-radius: 20px;
-//             border-width: thin;
-//         }
-//     }
-
-//     div.rating-section {
-//         width: 50%;
-//         input[type='radio'] {
-//             display: none;
-//         }
-
-//         .star {
-//             cursor: pointer;
-//             transition: color 200ms;
-//         }
-
-//         svg {
-//             font-size: 3rem;
-
-//             &:hover {
-//                 color: $green-color-hover;
-//             }
-//         }
-//     }
-
-
-//     .add-review-button {
-
-//         display: flex;
-//         align-items: center;
-//         margin: 0 2rem 0 0;
-
-//         button {
-//             background-color: $green-color;
-//             color: $black-color;
-//             border-radius: 3rem;
-//             border: none;
-//             padding: 0.5rem 2rem;
-//             width: 100%;
-//             max-width: 10rem;
-//             font-size: 1rem;
-//             font-weight: bold;
-//             cursor: pointer;
-
-//             &:hover {
-//                 background-color: $green-color-hover;
-//             }
-
-//         }
-
-//     }
-
-// }
 
 .review-component {
     .review-container {
         display: flex;
+        margin: 20px 0;
     }
 
     .review-message,
@@ -83,12 +15,12 @@
     .review-message {
         textarea {
             resize: none;
-            padding: 0.8rem;
+            padding: 12px;
             height: 7rem;
             width: 100%;
             max-width: 30rem;
-            border-radius: 20px;
-            border-width: thin;
+            border-radius: 10px;
+            border: 1px solid #000;
         }
     }
 

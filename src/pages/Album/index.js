@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Review from '../../components/Review';
+import ReviewCard from '../../components/ReviewCard';
+
 import { FaSpotify } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { getUserData, auth,  } from "../../database/firebase";
+import {getReviewsForAlbum, } from "../../database/firebase";
+
 import spotify from "../../util/spotify";
 
 import './album.scss';
@@ -15,18 +18,10 @@ export default function AlbumPage() {
     const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState([])
 
-
-    //const 
-
-
-    // useEffect(() => {
-    //     getReviewById(setReviews, albumId);
-    //     // const current = auth.currentUser;
-    //     // console.log(current)
-    //     // if (current) {
-    //     //   getUserData(current, setUserInfo)
-    //     // }
-    // }, [])
+    useEffect(() => {
+        getReviewsForAlbum(setReviews, albumId)
+        console.log(reviews)
+    }, [albumId])
 
 
     useEffect(() => {
@@ -107,19 +102,16 @@ export default function AlbumPage() {
                         <h2>WRITE A REVIEW</h2>
                         <Review albumId={albumId} albumName={album.name} albumImg={album.images[0].url} />
                         <h2>REVIEWS</h2>
-                        {reviews.map((review, index) => {
+                        {reviews.length > 0 ?
+                            <div>
+                                {reviews.map((review, index) => {
+                                    <div>{review}</div>
+                                })}
+                            </div>
 
-                            console.log('review:', review.review)
-                            return (
-
-                                <div>
-                                    <h2 key={index}>{review.review}</h2>
-                                </div>
-
-                            )
-
-                        })}
-
+                            :
+                            <div>No reviews for {album.name} yet!</div>
+                        }
                     </>
                 )}
             </div>

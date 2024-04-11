@@ -2,7 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signOut, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, setDoc, doc, getDoc, arrayUnion, collection, getDocs } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
 
 const firebaseConfig = {
 
@@ -62,7 +61,6 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
       authorId: current.uid
     }
 
-
     if (oldReviews.length > 0) {
       oldReviews.forEach((oldReview) => {
         if (oldReview.albumId !== albumId) {
@@ -95,12 +93,6 @@ export const writeReviewToDb = async (albumId, albumImg, albumName, review, rati
     console.log('Error retrieving user reviews from database')
     return;
   }
-
-
-
-
-
-
 }
 
 
@@ -126,6 +118,20 @@ export const getReviews = async (setReviews) => {
 }
 
 
+
+
+
+
+export const getReviewsForAlbum = async (setReviews, albumId) => {
+  const docRef = doc(db, 'reviews', albumId)
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    setReviews(docSnap.data().reviews)
+
+
+  }
+
+}
 
 // export const getReviewById = async (setReviews, id) => {
 
